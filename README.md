@@ -21,6 +21,7 @@ npm run dev
 - Count-up stopwatch mode for open-ended focus sessions
 - Distraction-free full-screen focus mode with synced timer controls and progress ring
 - Automatically records completed focus sessions locally
+- Link focus sessions and stopwatch time to a selected daily habit; retain the habit name in session history
 - Today's and all-time focus minutes, plus recent sessions
 - Date-grouped focus session timeline with individual delete controls
 - Editable daily and rolling 7-day focus-minute goals with persistent progress tracking
@@ -50,6 +51,7 @@ npm run dev
 17. Stopwatch session history — implemented (runtime testing pending)
 18. Session history management — implemented (runtime testing pending)
 19. Focus goals — daily and rolling 7-day targets with local persistence (runtime testing pending)
+20. Habit-linked focus sessions — associate timer and stopwatch records with a habit
 
 See [QA checklist](docs/QA_CHECKLIST.md) before release. See [architecture guide](docs/ARCHITECTURE.md) for module boundaries. Build and device testing are not yet verified.
 
