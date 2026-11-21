@@ -4,10 +4,11 @@ import HabitList from './components/HabitList'
 import FocusTimer from './components/FocusTimer'
 import StatsOverview from './components/StatsOverview'
 import ActivityHeatmap from './components/ActivityHeatmap'
+import AppShell from './components/AppShell'
 import { dateKey, shiftDate } from './lib/date'
 import { calculateStreaks } from './lib/habits'
 import type { Habit, History, FocusSession } from './types'
-import { Activity, Flame, LayoutDashboard, Settings, Target, Timer, TrendingUp, Share2, Download } from 'lucide-react'
+import { Activity, Flame, Share2 } from 'lucide-react'
 
 type TimerMode = 'focus' | 'short' | 'long'
 type InstallPromptEvent = Event & { prompt: () => Promise<void>; userChoice: Promise<{ outcome: 'accepted' | 'dismissed'; platform: string }> }
@@ -30,7 +31,7 @@ export default function App() {
   const [habits,setHabits]=useState<Habit[]>(loadHabits),[history,setHistory]=useState<History>(loadHistory),[sessions,setSessions]=useState<FocusSession[]>(loadSessions),[newHabit,setNewHabit]=useState('')
   const [mode,setMode]=useState<TimerMode>('focus'),[focusLength,setFocusLength]=useState(25),[remaining,setRemaining]=useState(25*60),[running,setRunning]=useState(false)
   const [today,setToday]=useState(()=>new Date()),todayKey=dateKey(today),completedIds=history[todayKey]||[],completed=habits.filter(h=>completedIds.includes(h.id)).length,percentage=habits.length?Math.round(completed/habits.length*100):0
-  const streak=useMemo(()=>calculateStreaks(history,today),[history,today]
+  const streak=useMemo(()=>calculateStreaks(history,today),[history,today])
   useEffect(()=>{const checkDate=()=>{const now=new Date();if(dateKey(now)!==dateKey(today))setToday(now)};const interval=window.setInterval(checkDate,60000);return()=>window.clearInterval(interval)},[today])
   const focusToday=sessions.filter(s=>s.date===todayKey).reduce((sum,s)=>sum+s.minutes,0),focusTotal=sessions.reduce((sum,s)=>sum+s.minutes,0)
   useEffect(()=>localStorage.setItem(habitsKey,JSON.stringify(habits)),[habits])
@@ -53,8 +54,7 @@ export default function App() {
   const resetTimer=()=>{setRunning(false);setRemaining(mode==='focus'?focusLength*60:modeMinutes[mode]*60)}
   const exportStory=()=>{const canvas=document.createElement('canvas');canvas.width=1080;canvas.height=1920;const ctx=canvas.getContext('2d');if(!ctx)return;const g=ctx.createLinearGradient(0,0,1080,1920);g.addColorStop(0,'#101711');g.addColorStop(1,'#1c2b20');ctx.fillStyle=g;ctx.fillRect(0,0,1080,1920);ctx.strokeStyle='#344b38';ctx.lineWidth=3;ctx.strokeRect(56,56,968,1808);ctx.fillStyle='#83b891';ctx.font='bold 64px sans-serif';ctx.fillText('FOCUSGRID',100,180);ctx.fillStyle='#dce8dd';ctx.font='48px sans-serif';ctx.fillText('DAILY PROGRESS',100,340);ctx.fillStyle='#83b891';ctx.font='bold 180px sans-serif';ctx.fillText(`${percentage}%`,100,610);ctx.fillStyle='#dce8dd';ctx.font='44px sans-serif';ctx.fillText('habits completed',100,700);ctx.fillStyle='#344b38';ctx.fillRect(100,760,880,28);ctx.fillStyle='#83b891';ctx.fillRect(100,760,880*percentage/100,28);ctx.fillStyle='#dce8dd';ctx.font='bold 54px sans-serif';ctx.fillText(`${completed} / ${habits.length} habits`,100,900);ctx.fillStyle='#91a398';ctx.font='40px sans-serif';ctx.fillText('FOCUS TIME TODAY',100,1080);ctx.fillStyle='#dce8dd';ctx.font='bold 112px sans-serif';ctx.fillText(`${focusToday} min`,100,1220);ctx.fillStyle='#91a398';ctx.font='40px sans-serif';ctx.fillText('CURRENT STREAK',100,1400);ctx.fillStyle='#dce8dd';ctx.font='bold 112px sans-serif';ctx.fillText(`${streak.current} days`,100,1540);ctx.fillStyle='#91a398';ctx.font='34px sans-serif';ctx.fillText(today.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric',year:'numeric'}),100,1690);ctx.fillStyle='#83b891';ctx.font='36px sans-serif';ctx.fillText('Progress, not perfection.',100,1800);const link=document.createElement('a');link.download=`focusgrid-${todayKey}.png`;link.href=canvas.toDataURL('image/png');link.click()}
   const formatTime=(secs:number)=>`${Math.floor(secs/60).toString().padStart(2,'0')}:${(secs%60).toString().padStart(2,'0')}`
-  return <div className="app-shell"><aside className="sidebar"><div className="brand"><span className="brand-mark">F</span><span>focus<span className="brand-accent">grid</span></span></div><nav><a className="nav-item active" href="#overview"><LayoutDashboard size={18}/> Overview</a><a className="nav-item" href="#habits"><Target size={18}/> Habits</a><a className="nav-item" href="#focus"><Timer size={18}/> Focus</a><a className="nav-item" href="#stats"><TrendingUp size={18}/> Stats</a></nav><div className="sidebar-bottom"><a className="nav-item" href="#settings"><Settings size={18}/> Settings</a><div className="profile"><div className="avatar">F</div><div><strong>Your workspace</strong><small>Personal progress</small></div></div></div></aside>
-  <main className="main"><header className="topbar" id="overview"><div><p className="eyebrow">YOUR DAILY RESET</p><h1>Good day. <span>Keep showing up.</span></h1></div><div className="topbar-actions"><span className={"connection-chip "+(isOffline?"offline":"")}>{isOffline?"Offline":"Online"}</span>{installPrompt&&!installed&&<button className="install-app" onClick={installApp}><Download size={15}/> Install</button>}<div className="date-chip">{today.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'})}</div></div></header>
+  return <AppShell header={{isOffline, installPromptAvailable: Boolean(installPrompt), installed, dateLabel: today.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'}), onInstall: installApp}}>
   <section className="summary-grid"><div className="card progress-card"><div className="card-label"><span>DAILY PROGRESS</span><Activity size={17}/></div><div className="progress-number">{completed}<span> / {habits.length}</span></div><div className="progress-track"><div className="progress-fill" style={{width:percentage+'%'}}/></div><p>{percentage===100?'All done. Great consistency.':'Small wins add up. One step at a time.'}</p></div><div className="card streak-card"><div className="card-label"><span>ACTIVE STREAK</span><Flame size={17}/></div><div className="streak-value">{streak.current} <small>days</small></div><p>Longest streak: {streak.longest} days</p><div className="streak-decoration">✦</div></div></section>
   <FocusTimer mode={mode} remainingText={formatTime(remaining)} running={running} focusLength={focusLength} focusToday={focusToday} focusTotal={focusTotal} sessions={sessions} onModeChange={setTimerMode} onDurationChange={minutes=>{const val=Math.min(180,Math.max(1,minutes||1));setFocusLength(val);setRemaining(val*60)}} onToggle={()=>setRunning(!running)} onReset={resetTimer}/>
   <HabitList habits={habits} completed={completed} completedIds={completedIds} newHabit={newHabit} onToggle={toggle} onEdit={editHabit} onDelete={deleteHabit} onNewHabitChange={setNewHabit} onAdd={addHabit}/>
@@ -62,5 +62,6 @@ export default function App() {
   <div id="settings"><CloudBackupPanel habits={habits} history={history} sessions={sessions} onRestore={(backup)=>{setHabits(backup.habits);setHistory(backup.history);setSessions(backup.sessions)}} /></div>
   <StatsOverview weeklyRate={weeklyRate} weeklyCompletions={weeklyCompletions} weeklyFocus={weeklyFocus} bestHabit={bestHabit} weeklyBars={weeklyBars} maxBar={maxBar}/>
   <ActivityHeatmap heatmap={heatmap} habits={habits}/>
-  <footer>FocusGrid <span>·</span> Progress, not perfection.</footer><nav className="mobile-nav"><a href="#overview"><LayoutDashboard size={17}/>Home</a><a href="#habits"><Target size={17}/>Habits</a><a href="#focus"><Timer size={17}/>Focus</a><a href="#stats"><TrendingUp size={17}/>Stats</a><a href="#settings"><Settings size={17}/>Settings</a></nav></main></div>
+  <footer>FocusGrid <span>·</span> Progress, not perfection.</footer>
+  </AppShell>
 }
