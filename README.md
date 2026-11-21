@@ -23,6 +23,8 @@ npm run dev
 - PWA manifest, install prompt, and service worker caching for offline app shell
 - Online/offline status indicator
 - Responsive dark-first interface
+- Defensive local storage parsing and backup payload validation
+- Automatic date rollover refresh while the app remains open
 
 ## Roadmap
 1. Application scaffold — complete
@@ -31,6 +33,10 @@ npm run dev
 4. Weekly statistics and insights — implemented (build verification pending)
 5. Share engine — daily story card and PNG export (build verification pending)
 6. PWA and offline support — implemented (installability and service worker; device testing pending)
-7. Cloud sync and accounts — later
+7. Cloud backup/account foundation — implemented (Supabase setup and end-to-end verification pending)
+8. Navigation and mobile UX — implemented
+9. QA and stability — implemented (guardrails/checklist; runtime verification pending)
+
+See [QA checklist](docs/QA_CHECKLIST.md) before release. Build and device testing are not yet verified.
 
 Built with React, TypeScript, Vite, and Lucide.
