@@ -17,6 +17,10 @@
 ## Focus timer
 - [ ] Stopwatch starts at 00:00 and counts upward once per second.
 - [ ] Pause and resume preserve elapsed stopwatch time.
+- [ ] Pausing records each newly completed whole minute once.
+- [ ] Resuming and pausing again records only additional whole minutes.
+- [ ] Reset and mode switching save unrecorded stopwatch minutes before clearing elapsed time.
+- [ ] Long stopwatch runs are stored as valid session chunks and survive refresh/cloud backup.
 - [ ] Reset stops stopwatch and returns elapsed time to 00:00.
 - [ ] Switching between stopwatch and countdown modes stops the previous timer.
 - [ ] Start, pause, resume, and reset.
