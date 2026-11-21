@@ -18,6 +18,7 @@ npm run dev
 - Focus timer: 25-minute default, editable focus duration
 - Short (5-minute) and long (15-minute) break modes
 - Start, pause, and reset
+- Count-up stopwatch mode for open-ended focus sessions
 - Automatically records completed focus sessions locally
 - Today's and all-time focus minutes, plus recent sessions
 - PWA manifest, install prompt, and service worker caching for offline app shell
