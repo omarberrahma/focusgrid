@@ -90,3 +90,15 @@
 - [ ] Renaming or deleting a habit does not erase historical session labels.
 - [ ] Older sessions without habit metadata continue loading.
 - [ ] Cloud backup and restore preserve optional habit links and reject malformed metadata.
+
+
+## Streak freeze
+- [ ] A new install starts with zero protected dates and no freeze usage.
+- [ ] Protecting yesterday adds exactly one date and preserves current/longest streak calculations.
+- [ ] A freeze cannot be used when yesterday already has a completion.
+- [ ] A freeze cannot be used without any existing streak history.
+- [ ] The same date cannot be protected twice.
+- [ ] Exactly two freezes can be used per calendar month; a new month resets the allowance.
+- [ ] A protected date does not create a habit completion or alter the activity heatmap.
+- [ ] Protected dates persist after refresh and survive cloud backup/restore.
+- [ ] Older backups without a `freezes` field still restore successfully.
