@@ -19,8 +19,3 @@ export function validateBackup(value: unknown): value is FocusGridBackup {
     !!backup.history && typeof backup.history === 'object' &&
     Array.isArray(backup.sessions) && typeof backup.updatedAt === 'string'
 }
-
-export function mergeBackup(local: FocusGridBackup, remote: FocusGridBackup): FocusGridBackup {
-  // Cloud backup is a snapshot; keep the newer snapshot whole to avoid mixing partial records.
-  return new Date(remote.updatedAt) > new Date(local.updatedAt) ? remote : local
-}
