@@ -36,7 +36,9 @@ npm run dev
 7. Cloud backup/account foundation — implemented (Supabase setup and end-to-end verification pending)
 8. Navigation and mobile UX — implemented
 9. QA and stability — implemented (guardrails/checklist; runtime verification pending)
+10. CI build workflow — added (GitHub Actions; build result not yet verified)
+11. Architecture foundation — extracted shared date/streak utilities and documented module boundaries
 
-See [QA checklist](docs/QA_CHECKLIST.md) before release. Build and device testing are not yet verified.
+See [QA checklist](docs/QA_CHECKLIST.md) before release. See [architecture guide](docs/ARCHITECTURE.md) for module boundaries. Build and device testing are not yet verified.
 
 Built with React, TypeScript, Vite, and Lucide.
