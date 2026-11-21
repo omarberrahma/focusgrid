@@ -102,3 +102,15 @@
 - [ ] A protected date does not create a habit completion or alter the activity heatmap.
 - [ ] Protected dates persist after refresh and survive cloud backup/restore.
 - [ ] Older backups without a `freezes` field still restore successfully.
+
+
+## Streak calendar and freeze history
+- [ ] Calendar opens on the current month and displays the correct weekday alignment and number of days.
+- [ ] Previous/next month navigation works; future months cannot be selected.
+- [ ] Days with real habit completions are visually distinct from protected days.
+- [ ] A protected day is shown even when no habit completion exists for that date.
+- [ ] Today is visibly outlined without overriding completed/frozen status.
+- [ ] Freeze history lists all protected dates newest first and formats dates in the local locale.
+- [ ] Empty freeze history displays a clear empty state.
+- [ ] Calendar and freeze history update immediately after using a freeze and after cloud restore.
+- [ ] Layout remains usable at 320px, 390px, tablet, and desktop widths.
