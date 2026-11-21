@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { ChevronLeft, ChevronRight, CalendarDays, Snowflake } from 'lucide-react'
 import type { Habit, History } from '../types'
-import { dateKey, shiftDate } from '../lib/date'
+import { dateKey } from '../lib/date'
 
 type Props = { today: Date; history: History; habits: Habit[]; frozenDates: string[] }
 const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
