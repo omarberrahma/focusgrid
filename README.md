@@ -18,7 +18,8 @@ npm run dev
 - Focus timer: 25-minute default, editable focus duration
 - Short (5-minute) and long (15-minute) break modes
 - Start, pause, and reset
-- Count-up stopwatch mode for open-ended focus sessions\n- Distraction-free full-screen focus mode with synced timer controls and progress ring
+- Count-up stopwatch mode for open-ended focus sessions
+- Distraction-free full-screen focus mode with synced timer controls and progress ring
 - Automatically records completed focus sessions locally
 - Today's and all-time focus minutes, plus recent sessions
 - PWA manifest, install prompt, and service worker caching for offline app shell
@@ -42,7 +43,8 @@ npm run dev
 12. Component separation — extracted HabitList UI
 13. FocusTimer extraction — timer UI separated from App
 14. Statistics and activity extraction — StatsOverview, WeeklyChart, and ActivityHeatmap
-15. AppShell and layout extraction — Sidebar, Header, and BottomNav\n16. Full-screen focus mode — implemented (device testing pending)
+15. AppShell and layout extraction — Sidebar, Header, and BottomNav
+16. Full-screen focus mode — implemented (device testing pending)
 17. Stopwatch session history — implemented (runtime testing pending)
 
 See [QA checklist](docs/QA_CHECKLIST.md) before release. See [architecture guide](docs/ARCHITECTURE.md) for module boundaries. Build and device testing are not yet verified.
