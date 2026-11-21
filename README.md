@@ -23,6 +23,7 @@ npm run dev
 - Automatically records completed focus sessions locally
 - Today's and all-time focus minutes, plus recent sessions
 - Date-grouped focus session timeline with individual delete controls
+- Editable daily and rolling 7-day focus-minute goals with persistent progress tracking
 - PWA manifest, install prompt, and service worker caching for offline app shell
 - Online/offline status indicator
 - Responsive dark-first interface
@@ -48,6 +49,7 @@ npm run dev
 16. Full-screen focus mode — implemented (device testing pending)
 17. Stopwatch session history — implemented (runtime testing pending)
 18. Session history management — implemented (runtime testing pending)
+19. Focus goals — daily and rolling 7-day targets with local persistence (runtime testing pending)
 
 See [QA checklist](docs/QA_CHECKLIST.md) before release. See [architecture guide](docs/ARCHITECTURE.md) for module boundaries. Build and device testing are not yet verified.
 
