@@ -30,7 +30,15 @@
 - [ ] Completing a break returns to focus.
 - [ ] Refresh preserves completed sessions.
 
-## Full-screen focus mode\n- [ ] Focus mode opens as a viewport-filling distraction-free overlay.\n- [ ] Timer display stays in sync with the dashboard timer.\n- [ ] Pause/resume and reset work inside the overlay.\n- [ ] Exit controls close the overlay without resetting timer state.\n- [ ] Countdown progress ring advances and stopwatch uses an indeterminate ring.\n- [ ] Overlay controls remain usable at 320px, 390px, tablet and desktop widths.\n\n## Date boundaries and stats
+## Full-screen focus mode
+- [ ] Focus mode opens as a viewport-filling distraction-free overlay.
+- [ ] Timer display stays in sync with the dashboard timer.
+- [ ] Pause/resume and reset work inside the overlay.
+- [ ] Exit controls close the overlay without resetting timer state.
+- [ ] Countdown progress ring advances and stopwatch uses an indeterminate ring.
+- [ ] Overlay controls remain usable at 320px, 390px, tablet and desktop widths.
+
+## Date boundaries and stats
 - [ ] Leave app open past midnight: today and daily totals refresh.
 - [ ] Weekly chart reflects last seven calendar dates.
 - [ ] Activity heatmap counts only currently defined habits.
