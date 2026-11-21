@@ -1,4 +1,4 @@
-import { Maximize2, Minimize2, Pause, Play, RotateCcw, X } from 'lucide-react'
+import { Minimize2, Pause, Play, RotateCcw, X } from 'lucide-react'
 import type { CSSProperties } from 'react'
 import type { TimerMode } from './FocusTimer'
 
