@@ -41,6 +41,7 @@ npm run dev
 12. Component separation — extracted HabitList UI
 13. FocusTimer extraction — timer UI separated from App
 14. Statistics and activity extraction — StatsOverview, WeeklyChart, and ActivityHeatmap
+15. AppShell and layout extraction — Sidebar, Header, and BottomNav
 
 See [QA checklist](docs/QA_CHECKLIST.md) before release. See [architecture guide](docs/ARCHITECTURE.md) for module boundaries. Build and device testing are not yet verified.
 
