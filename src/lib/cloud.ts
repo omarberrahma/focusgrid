@@ -5,11 +5,12 @@ export type FocusGridBackup = {
   habits: Habit[]
   history: History
   sessions: FocusSession[]
+  freezes?: string[]
   updatedAt: string
 }
 
-export function createBackup(habits: Habit[], history: History, sessions: FocusSession[]): FocusGridBackup {
-  return { version: 1, habits, history, sessions, updatedAt: new Date().toISOString() }
+export function createBackup(habits: Habit[], history: History, sessions: FocusSession[], freezes: string[] = []): FocusGridBackup {
+  return { version: 1, habits, history, sessions, freezes, updatedAt: new Date().toISOString() }
 }
 
 export function validateBackup(value: unknown): value is FocusGridBackup {
@@ -26,5 +27,6 @@ export function validateBackup(value: unknown): value is FocusGridBackup {
     /^\d{4}-\d{2}-\d{2}$/.test(s.date) && Number.isFinite(s.minutes) && s.minutes > 0 && s.minutes <= 180 &&
     (s.habitId === undefined || typeof s.habitId === 'string') &&
     (s.habitName === undefined || typeof s.habitName === 'string'))
-  return habitsValid && historyValid && sessionsValid
+  const freezesValid = backup.freezes === undefined || (Array.isArray(backup.freezes) && backup.freezes.every(date => typeof date === 'string' && date.length === 10 && date[4] === '-' && date[7] === '-'))
+  return habitsValid && historyValid && sessionsValid && freezesValid
 }
