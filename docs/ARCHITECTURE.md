@@ -18,7 +18,7 @@
 - `src/CloudBackupPanel.tsx`: cloud backup and restore panel.
 - `src/components/HabitList.tsx`: habits list, completion toggles, edit/delete actions, and add-habit UI.
 - `src/components/FocusTimer.tsx`: timer modes, timer controls, duration input, focus-mode entry, and focus-session summaries (state is owned by App).
-- `src/components/FocusOverlay.tsx`: full-viewport distraction-free timer overlay; receives timer state and actions from App.
+- `src/components/FocusOverlay.tsx`: full-viewport distraction-free timer overlay; receives timer state and actions from App.\n- `src/components/SessionHistory.tsx`: date-grouped focus-session timeline with individual deletion.
 - `src/components/StatsOverview.tsx`: weekly summary tiles and top-habit insight.
 - `src/components/WeeklyChart.tsx`: weekly focus-minutes bar chart.
 - `src/components/ActivityHeatmap.tsx`: 12-week habit activity visualization.
@@ -41,3 +41,7 @@ The `FocusTimer` component exposes a stopwatch option. `App` owns the mode and e
 
 ## Full-screen focus mode
 `App` owns the overlay visibility and timer state. `FocusOverlay` is a viewport-filling distraction-free presentation layer; it does not create a second timer. Countdown modes show remaining-time progress, while stopwatch mode uses an open-ended ring. Exiting the overlay leaves the active timer state unchanged.
+
+ 
+## Session history
+`App` owns the persisted focus-session collection and deletion action. `SessionHistory` renders the collection grouped by date, newest first, and emits an individual session ID when a record is deleted. All dashboard statistics derive from the same collection, so they recalculate after deletion.
