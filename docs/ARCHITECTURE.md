@@ -54,3 +54,7 @@ The `FocusTimer` component exposes a stopwatch option. `App` owns the mode and e
 
 ## Streak freeze
 Protected calendar dates are stored separately from habit completion history under `focusgrid-streak-freezes-v1`. A user can manually protect yesterday when it has no completion, an existing streak is present, and fewer than two freezes have been used in the current calendar month. Protected dates contribute to current and longest streak calculations but never create a habit completion. New backups include the optional `freezes` array; older version-1 backups without it remain valid.
+
+
+## Streak calendar
+`src/components/StreakCalendar.tsx` renders a navigable month grid from the existing habit history and protected-date list. Completed days and freeze-protected days have distinct visual states. The freeze history is derived from the same persisted protected-date array and sorted newest first; it does not introduce a second source of truth.
