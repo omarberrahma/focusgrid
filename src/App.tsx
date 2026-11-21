@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
 import CloudBackupPanel from './CloudBackupPanel'
+import { dateKey, shiftDate } from './lib/date'
+import { calculateStreaks } from './lib/habits'
+import type { Habit, History, FocusSession } from './types'
 import { Activity, Check, Circle, Flame, LayoutDashboard, Plus, Settings, Target, Timer, TrendingUp, Pencil, Trash2, Play, Pause, RotateCcw, Clock, Share2, Download } from 'lucide-react'
 
-type Habit = { id: string; name: string; icon: string }
-type History = Record<string, string[]>
-type FocusSession = { id: string; date: string; minutes: number }
 type TimerMode = 'focus' | 'short' | 'long'
 type InstallPromptEvent = Event & { prompt: () => Promise<void>; userChoice: Promise<{ outcome: 'accepted' | 'dismissed'; platform: string }> }
 const defaultHabits: Habit[] = [
@@ -15,12 +15,9 @@ const defaultHabits: Habit[] = [
 ]
 const habitsKey = 'focusgrid-habits-v2', historyKey = 'focusgrid-history-v1'
 const sessionsKey = 'focusgrid-focus-sessions-v1'
-function dateKey(date: Date) { return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}` }
-function shiftDate(date: Date, amount: number) { const copy = new Date(date.getFullYear(), date.getMonth(), date.getDate()); copy.setDate(copy.getDate()+amount); return copy }
 function loadHabits(): Habit[] { try { const saved=localStorage.getItem(habitsKey); if(saved){const parsed=JSON.parse(saved);if(Array.isArray(parsed)){const valid=parsed.filter((h):h is Habit=>h&&typeof h.id==='string'&&typeof h.name==='string'&&typeof h.icon==='string').slice(0,5);if(valid.length)return valid}} const old=localStorage.getItem('focusgrid-habits-v1'); if(old){const parsed=JSON.parse(old);if(Array.isArray(parsed)){const valid=parsed.filter((h=>h&&typeof h.id==='string'&&typeof h.name==='string'&&typeof h.icon==='string')).slice(0,5);if(valid.length)return valid}} return defaultHabits.map(h=>({...h})) } catch { return defaultHabits.map(h=>({...h})) } }
 function loadHistory(): History { try { const parsed=JSON.parse(localStorage.getItem(historyKey)||'{}'); if(!parsed||typeof parsed!=='object'||Array.isArray(parsed))return {}; return Object.fromEntries(Object.entries(parsed).filter(([date,ids])=>/^\\d{4}-\\d{2}-\\d{2}$/.test(date)&&Array.isArray(ids)).map(([date,ids])=>[date,(ids as unknown[]).filter(id=>typeof id==='string')])) as History } catch { return {} } }
 function loadSessions(): FocusSession[] { try { const parsed=JSON.parse(localStorage.getItem(sessionsKey)||'[]'); if(!Array.isArray(parsed))return []; return parsed.filter((s):s is FocusSession=>s&&typeof s.id==='string'&&/^\\d{4}-\\d{2}-\\d{2}$/.test(s.date)&&Number.isFinite(s.minutes)&&s.minutes>0&&s.minutes<=180) } catch { return [] } }
-function streaks(history: History, today: Date) { const active=(d:Date)=>(history[dateKey(d)]||[]).length>0; let current=0,cursor=today; if(!active(cursor))cursor=shiftDate(cursor,-1); while(active(cursor)){current++;cursor=shiftDate(cursor,-1)} const dates=Object.keys(history).filter(k=>history[k]?.length).sort();let longest=0,run=0,prev:Date|null=null;for(const k of dates){const [y,m,d]=k.split('-').map(Number),date=new Date(y,m-1,d);if(prev&&dateKey(shiftDate(prev,1))===k)run++;else run=1;longest=Math.max(longest,run);prev=date}return {current,longest} }
 const modeMinutes: Record<TimerMode,number>={focus:25,short:5,long:15}
 export default function App() {
   const [installPrompt,setInstallPrompt]=useState<InstallPromptEvent|null>(null),[isOffline,setIsOffline]=useState(!navigator.onLine),[installed,setInstalled]=useState(window.matchMedia('(display-mode: standalone)').matches)
@@ -29,7 +26,7 @@ export default function App() {
   const [habits,setHabits]=useState<Habit[]>(loadHabits),[history,setHistory]=useState<History>(loadHistory),[sessions,setSessions]=useState<FocusSession[]>(loadSessions),[newHabit,setNewHabit]=useState('')
   const [mode,setMode]=useState<TimerMode>('focus'),[focusLength,setFocusLength]=useState(25),[remaining,setRemaining]=useState(25*60),[running,setRunning]=useState(false)
   const [today,setToday]=useState(()=>new Date()),todayKey=dateKey(today),completedIds=history[todayKey]||[],completed=habits.filter(h=>completedIds.includes(h.id)).length,percentage=habits.length?Math.round(completed/habits.length*100):0
-  const streak=useMemo(()=>streaks(history,today),[history,today])
+  const streak=useMemo(()=>calculateStreaks(history,today),[history,today]
   useEffect(()=>{const checkDate=()=>{const now=new Date();if(dateKey(now)!==dateKey(today))setToday(now)};const interval=window.setInterval(checkDate,60000);return()=>window.clearInterval(interval)},[today])
   const focusToday=sessions.filter(s=>s.date===todayKey).reduce((sum,s)=>sum+s.minutes,0),focusTotal=sessions.reduce((sum,s)=>sum+s.minutes,0)
   useEffect(()=>localStorage.setItem(habitsKey,JSON.stringify(habits)),[habits])
