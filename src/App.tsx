@@ -8,6 +8,7 @@ import FocusGoals from './components/FocusGoals'
 import StreakFreeze from './components/StreakFreeze'
 import StatsOverview from './components/StatsOverview'
 import ActivityHeatmap from './components/ActivityHeatmap'
+import StreakCalendar from './components/StreakCalendar'
 import AppShell from './components/AppShell'
 import { dateKey, shiftDate } from './lib/date'
 import { calculateStreaks } from './lib/habits'
@@ -83,6 +84,7 @@ export default function App() {
   <div id="settings"><CloudBackupPanel habits={habits} history={history} sessions={sessions} freezes={frozenDates} onRestore={(backup)=>{setHabits(backup.habits);setHistory(backup.history);setSessions(backup.sessions);setFrozenDates(backup.freezes||[])}} /></div>
   <StatsOverview weeklyRate={weeklyRate} weeklyCompletions={weeklyCompletions} weeklyFocus={weeklyFocus} bestHabit={bestHabit} weeklyBars={weeklyBars} maxBar={maxBar}/>
   <ActivityHeatmap heatmap={heatmap} habits={habits}/>
+  <StreakCalendar today={today} history={history} habits={habits} frozenDates={frozenDates}/>
   <footer>FocusGrid <span>·</span> Progress, not perfection.</footer>
   </AppShell>
 }
