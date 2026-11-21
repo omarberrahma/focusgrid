@@ -39,7 +39,7 @@ export default function App() {
   const weeklyCompletions=weekDays.reduce((sum,d)=>sum+(history[dateKey(d)]||[]).filter(id=>habits.some(h=>h.id===id)).length,0)
   const weeklyRate=habits.length?Math.round(weeklyCompletions/(habits.length*7)*100):0
   const weeklyFocus=weekDays.reduce((sum,d)=>sum+sessions.filter(s=>s.date===dateKey(d)).reduce((m,s)=>m+s.minutes,0),0)
-  const weeklyBars=weekDays.map(d=>({date:d,minutes:sessions.filter(s=>s.date===dateKey(d)).reduce((m,s)=>m+s.minutes,0)}))
+  const weeklyBars=weekDays.map(d=>({date:d,minutes:sessions.filter(s=>s.date===dateKey(d)).reduce((m,s)=>m+s.minutes,0)})))
   const maxBar=Math.max(1,...weeklyBars.map(d=>d.minutes))
   const bestHabit=habits.map(h=>({habit:h,count:weekDays.reduce((sum,d)=>sum+(history[dateKey(d)]||[]).filter(id=>id===h.id).length,0)})).sort((a,b)=>b.count-a.count)[0]
   const setTimerMode=(next:TimerMode)=>{setRunning(false);setMode(next);setRemaining(next==='focus'?focusLength*60:modeMinutes[next]*60)}
