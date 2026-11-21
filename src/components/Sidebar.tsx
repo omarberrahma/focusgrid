@@ -1,0 +1,4 @@
+import { LayoutDashboard, Settings, Target, Timer, TrendingUp } from 'lucide-react'
+export default function Sidebar() {
+  return <aside className="sidebar"><div className="brand"><span className="brand-mark">F</span><span>focus<span className="brand-accent">grid</span></span></div><nav><a className="nav-item active" href="#overview"><LayoutDashboard size={18}/> Overview</a><a className="nav-item" href="#habits"><Target size={18}/> Habits</a><a className="nav-item" href="#focus"><Timer size={18}/> Focus</a><a className="nav-item" href="#stats"><TrendingUp size={18}/> Stats</a></nav><div className="sidebar-bottom"><a className="nav-item" href="#settings"><Settings size={18}/> Settings</a><div className="profile"><div className="avatar">F</div><div><strong>Your workspace</strong><small>Personal progress</small></div></div></div></aside>
+}
