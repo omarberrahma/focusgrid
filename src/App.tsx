@@ -63,7 +63,7 @@ export default function App() {
   const toggleTimer=()=>{if(mode==='stopwatch'&&running)saveStopwatchProgress();setRunning(!running)}
   const setTimerMode=(next:TimerMode)=>{if(mode==='stopwatch')saveStopwatchProgress();setStopwatchRecordedMinutes(0);setRunning(false);setMode(next);setRemaining(next==='stopwatch'?0:next==='focus'?focusLength*60:modeMinutes[next]*60)}
   const deleteSession=(id:string)=>setSessions(prev=>prev.filter(session=>session.id!==id))
-  const yesterdayKey=dateKey(shiftDate(today,-1)),freezeMonth=todayKey.slice(0,7),freezesUsedThisMonth=frozenDates.filter(date=>date.slice(0,7)===freezeMonth).length,canUseFreeze=!(history[yesterdayKey]||[]).length&&!frozenDates.includes(yesterdayKey)&&freezesUsedThisMonth<2&&streak.longest>0
+  const yesterdayKey=dateKey(shiftDate(today,-1)),dayBeforeYesterdayKey=dateKey(shiftDate(today,-2)),freezeMonth=todayKey.slice(0,7),freezesUsedThisMonth=frozenDates.filter(date=>date.slice(0,7)===freezeMonth).length,hasRecentStreak=(history[todayKey]||[]).length>0||(history[dayBeforeYesterdayKey]||[]).length>0||frozenDates.includes(dayBeforeYesterdayKey),canUseFreeze=!(history[yesterdayKey]||[]).length&&!frozenDates.includes(yesterdayKey)&&freezesUsedThisMonth<2&&hasRecentStreak
   const useStreakFreeze=()=>{if(canUseFreeze)setFrozenDates(prev=>[...prev,yesterdayKey].sort())}
   const toggle= (id:string)=>setHistory(prev=>{const day=prev[todayKey]||[],next=day.includes(id)?day.filter(x=>x!==id):[...day,id];return {...prev,[todayKey]:next}})
   const addHabit=()=>{const name=newHabit.trim();if(!name||habits.length>=5)return;setHabits(prev=>[...prev,{id:crypto.randomUUID(),name,icon:'✨'}]);setNewHabit('')}
