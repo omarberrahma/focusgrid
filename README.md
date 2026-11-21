@@ -21,7 +21,7 @@ npm run dev
 - Count-up stopwatch mode for open-ended focus sessions
 - Distraction-free full-screen focus mode with synced timer controls and progress ring
 - Automatically records completed focus sessions locally
-- Today's and all-time focus minutes, plus recent sessions
+- Today's and all-time focus minutes, plus recent sessions\n- Date-grouped focus session timeline with individual delete controls
 - PWA manifest, install prompt, and service worker caching for offline app shell
 - Online/offline status indicator
 - Responsive dark-first interface
@@ -45,7 +45,7 @@ npm run dev
 14. Statistics and activity extraction — StatsOverview, WeeklyChart, and ActivityHeatmap
 15. AppShell and layout extraction — Sidebar, Header, and BottomNav
 16. Full-screen focus mode — implemented (device testing pending)
-17. Stopwatch session history — implemented (runtime testing pending)
+17. Stopwatch session history — implemented (runtime testing pending)\n18. Session history management — implemented (runtime testing pending)
 
 See [QA checklist](docs/QA_CHECKLIST.md) before release. See [architecture guide](docs/ARCHITECTURE.md) for module boundaries. Build and device testing are not yet verified.
 
