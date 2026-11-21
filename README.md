@@ -13,7 +13,7 @@ npm run dev
 - Local habit/history persistence and legacy habit migration
 - Current and longest streak
 - 12-week activity heatmap
-- Focus timer: 25-minute default, editable focus duration
+- Weekly stats: habit completion rate, focus minutes, top habit, and 7-day focus chart\n- Focus timer: 25-minute default, editable focus duration
 - Short (5m) and long (15m) break modes
 - Start, pause, reset
 - Automatically records completed focus sessions locally
