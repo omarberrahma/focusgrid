@@ -55,6 +55,7 @@ npm run dev
 19. Focus goals — daily and rolling 7-day targets with local persistence (runtime testing pending)
 20. Habit-linked focus sessions — associate timer and stopwatch records with a habit
 21. Streak freeze — manually protect a missed day, with a two-use monthly allowance
+22. Streak calendar — monthly completion view and chronological freeze history
 
 See [QA checklist](docs/QA_CHECKLIST.md) before release. See [architecture guide](docs/ARCHITECTURE.md) for module boundaries. Build and device testing are not yet verified.
 
