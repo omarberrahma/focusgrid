@@ -1,5 +1,10 @@
 # FocusGrid QA Checklist
 
+## Data validation regression checks
+- [ ] Valid `YYYY-MM-DD` keys are accepted in saved history and focus sessions.
+- [ ] Invalid date strings and malformed date keys are ignored during local storage loading.
+- [ ] Existing saved history and focus sessions still load after an app update.
+
 ## Local data
 - [ ] Start with empty storage: defaults load without errors.
 - [ ] Add habits until 5; sixth is blocked.
