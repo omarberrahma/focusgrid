@@ -70,3 +70,32 @@ html{scroll-behavior:smooth;scroll-padding-top:24px}
 
 /* Milestone 23: streak freeze */
 .streak-freeze-card{margin-bottom:18px}.streak-freeze-card .section-head{margin-bottom:8px}.freeze-action{width:100%;border:0;border-radius:10px;background:#83b891;color:#101711;padding:12px;font-size:12px;font-weight:700;cursor:pointer}.freeze-action:disabled{background:#29342b;color:#839087;cursor:not-allowed}.freeze-status{font-size:12px;color:#a8d1b0;margin:10px 0 0}.freeze-footnote{font-size:10px;color:#748178;margin:10px 0 0}
+
+
+/* Milestone 24: monthly streak calendar and freeze history */
+.streak-calendar-card{margin-bottom:20px}
+.streak-calendar-controls{display:flex;align-items:center;gap:8px}
+.streak-calendar-controls strong{min-width:112px;text-align:center;color:#dce8dd;font-size:12px}
+.streak-calendar-controls button{display:grid;place-items:center;width:30px;height:30px;border:1px solid #344036;border-radius:8px;background:#202821;color:#b8c7bb;cursor:pointer}
+.streak-calendar-controls button:disabled{opacity:.35;cursor:not-allowed}
+.streak-calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.streak-calendar-weekday{text-align:center;color:#738177;font-size:10px;padding:5px 0}
+.streak-calendar-day{position:relative;display:grid;place-items:center;min-height:38px;border:1px solid #29332b;border-radius:9px;background:#202721;color:#aab6ac;font-size:12px;font-variant-numeric:tabular-nums}
+.streak-calendar-day.empty{border-color:transparent;background:transparent}
+.streak-calendar-day.completed{border-color:#42694a;background:#263d2b;color:#b9d9bf}
+.streak-calendar-day.frozen{border-color:#9a8053;background:#3a3020;color:#e5c995}
+.streak-calendar-day.today{box-shadow:inset 0 0 0 1px #83b891;color:#f0f5f0}
+.streak-calendar-day .day-mark{position:absolute;right:4px;bottom:3px;width:5px;height:5px;border-radius:50%;background:#83b891}
+.streak-calendar-day.frozen .day-mark{background:#d7b575}
+.streak-calendar-legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;color:#829087;font-size:10px}
+.streak-calendar-legend span{display:flex;align-items:center;gap:6px}
+.streak-calendar-legend i{width:9px;height:9px;border-radius:3px;background:#263d2b;border:1px solid #42694a}
+.streak-calendar-legend .freeze-dot{background:#3a3020;border-color:#9a8053}
+.freeze-history{border-top:1px solid #2a342c;margin-top:18px;padding-top:16px}
+.freeze-history-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.freeze-history-heading strong{font-size:12px;color:#cbd7cd}
+.freeze-history-list{display:grid;gap:7px}
+.freeze-history-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 11px;border:1px solid #33372c;background:#20251e;border-radius:9px;font-size:11px;color:#c8d2c9}
+.freeze-history-row span:last-child{color:#d7b575}
+.freeze-history-empty{font-size:11px;color:#78867c;margin:0}
+@media(max-width:420px){.streak-calendar-grid{gap:4px}.streak-calendar-day{min-height:34px;border-radius:7px}.streak-calendar-controls strong{min-width:100px}}
