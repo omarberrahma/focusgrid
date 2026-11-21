@@ -1,0 +1,14 @@
+{
+  "name": "FocusGrid",
+  "short_name": "FocusGrid",
+  "description": "Build consistency, one day at a time.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#111511",
+  "theme_color": "#111511",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
