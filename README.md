@@ -38,7 +38,8 @@ npm run dev
 9. QA and stability — implemented (guardrails/checklist; runtime verification pending)
 10. CI build workflow — added (GitHub Actions; build result not yet verified)
 11. Architecture foundation — extracted shared date/streak utilities and documented module boundaries
-12. Component separation — extracted reusable HabitList UI
+12. Component separation — extracted HabitList UI
+13. FocusTimer extraction — timer UI separated from App
 
 See [QA checklist](docs/QA_CHECKLIST.md) before release. See [architecture guide](docs/ARCHITECTURE.md) for module boundaries. Build and device testing are not yet verified.
 
