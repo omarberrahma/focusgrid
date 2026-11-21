@@ -13,6 +13,7 @@ npm run dev
 - Local habit/history persistence and legacy habit migration
 - Current and longest streak
 - Manual streak freeze: protect one missed previous day, with 2 uses per calendar month
+- Monthly streak calendar with protected-day markers and a chronological freeze history
 - 12-week activity heatmap
 - Weekly statistics: habit completion rate, focus minutes, top habit, and 7-day focus chart
 - Daily progress story card (1080 × 1920) with PNG export
