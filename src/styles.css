@@ -16,3 +16,9 @@
 
 /* Cloud backup panel */
 .cloud-card{margin-bottom:18px}.cloud-card .section-head h2{display:flex;align-items:center;gap:8px}.cloud-card .section-head h2 svg{color:#83b891}.cloud-login,.cloud-actions{display:flex;flex-wrap:wrap;gap:8px}.cloud-login input{flex:1;min-width:180px;border:1px solid #2a342c;background:#141a15;color:#e3ece4;border-radius:9px;padding:11px}.cloud-login button,.cloud-actions button{display:flex;align-items:center;gap:7px;border:0;border-radius:9px;background:#83b891;color:#111913;padding:10px 13px;font-size:12px;font-weight:700;cursor:pointer}.cloud-actions button.cloud-signout{background:#29342b;color:#cad6cc}.cloud-login button:disabled,.cloud-actions button:disabled{opacity:.5;cursor:not-allowed}.cloud-account{font-size:12px;color:#a6b5a9;margin:0 0 12px}.cloud-account strong{color:#dce8dd}.cloud-status{font-size:12px;color:#a8d1b0;margin:12px 0 0}
+
+/* Milestone 08: functional section navigation */
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+#overview,#habits,#focus,#stats,#settings{scroll-margin-top:22px}
+.mobile-nav{display:none}
+@media(max-width:760px){.mobile-nav{position:fixed;z-index:30;left:10px;right:10px;bottom:10px;display:grid;grid-template-columns:repeat(5,1fr);gap:3px;padding:7px;border:1px solid #303b32;border-radius:16px;background:rgba(21,26,22,.96);backdrop-filter:blur(14px);box-shadow:0 8px 30px rgba(0,0,0,.35)}.mobile-nav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:45px;color:#91a097;text-decoration:none;font-size:9px;border-radius:10px}.mobile-nav a:active,.mobile-nav a:focus-visible{background:#27332a;color:#b7d8bd;outline:none}.main{padding-bottom:112px}}
