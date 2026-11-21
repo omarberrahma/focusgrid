@@ -46,3 +46,7 @@ The `FocusTimer` component exposes a stopwatch option. `App` owns the mode and e
  
 ## Session history
 `App` owns the persisted focus-session collection and deletion action. `SessionHistory` renders the collection grouped by date, newest first, and emits an individual session ID when a record is deleted. All dashboard statistics derive from the same collection, so they recalculate after deletion.
+
+
+## Habit-linked focus sessions
+`FocusSession` supports optional `habitId` and `habitName` fields. New focus blocks and saved stopwatch minutes capture the selected habit; the name snapshot keeps historical records readable if a habit is renamed or deleted. Older session records remain valid without these optional fields.
