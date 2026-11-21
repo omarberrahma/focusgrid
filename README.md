@@ -12,6 +12,7 @@ npm run dev
 - Daily habits: create, edit, delete, and check off (limit: 5)
 - Local habit/history persistence and legacy habit migration
 - Current and longest streak
+- Manual streak freeze: protect one missed previous day, with 2 uses per calendar month
 - 12-week activity heatmap
 - Weekly statistics: habit completion rate, focus minutes, top habit, and 7-day focus chart
 - Daily progress story card (1080 × 1920) with PNG export
@@ -52,6 +53,7 @@ npm run dev
 18. Session history management — implemented (runtime testing pending)
 19. Focus goals — daily and rolling 7-day targets with local persistence (runtime testing pending)
 20. Habit-linked focus sessions — associate timer and stopwatch records with a habit
+21. Streak freeze — manually protect a missed day, with a two-use monthly allowance
 
 See [QA checklist](docs/QA_CHECKLIST.md) before release. See [architecture guide](docs/ARCHITECTURE.md) for module boundaries. Build and device testing are not yet verified.
 
