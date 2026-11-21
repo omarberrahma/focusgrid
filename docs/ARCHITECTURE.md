@@ -21,7 +21,11 @@
 - `src/components/StatsOverview.tsx`: weekly summary tiles and top-habit insight.
 - `src/components/WeeklyChart.tsx`: weekly focus-minutes bar chart.
 - `src/components/ActivityHeatmap.tsx`: 12-week habit activity visualization.
-- `src/App.tsx`: main dashboard orchestration, state, derived metrics, and story export. Most display sections are extracted into reusable components.
+- `src/components/AppShell.tsx`: shared application frame and content layout.
+- `src/components/Sidebar.tsx`: desktop primary navigation and workspace identity.
+- `src/components/Header.tsx`: dashboard greeting, connection status, install action, and date.
+- `src/components/BottomNav.tsx`: fixed mobile navigation.
+- `src/App.tsx`: application state, derived metrics, event handlers, and dashboard composition.
 
 ## Design principles
 - Local-first: core habit and focus features work without cloud configuration.
