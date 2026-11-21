@@ -37,7 +37,7 @@ export default function SessionHistory({ sessions, onDelete }: Props) {
         <div className="session-day-heading"><span>{formatDate(group.date)}</span><span>{group.sessions.reduce((sum,s)=>sum+s.minutes,0)} min</span></div>
         {group.sessions.map((session,index) => <div className="session-history-row" key={session.id}>
           <div className="session-history-icon"><Clock3 size={16}/></div>
-          <div className="session-history-info"><strong>Focus session {index + 1}</strong><span>{session.minutes} minutes</span></div>
+          <div className="session-history-info"><strong>Focus session {index + 1}</strong><span>{session.minutes} minutes{session.habitName ? ` · ${session.habitName}` : ''}</span></div>
           <button className="session-delete" onClick={() => onDelete(session.id)} aria-label={`Delete ${session.minutes} minute session from ${group.date}`} title="Delete session"><Trash2 size={16}/></button>
         </div>)}
       </section>)}
