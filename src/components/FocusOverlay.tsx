@@ -1,4 +1,5 @@
 import { Maximize2, Minimize2, Pause, Play, RotateCcw, X } from 'lucide-react'
+import type { CSSProperties } from 'react'
 import type { TimerMode } from './FocusTimer'
 
 type Props = {
@@ -27,7 +28,7 @@ export default function FocusOverlay({ mode, time, running, progress, onToggle, 
     </div>
     <main className="focus-overlay-center">
       <p className="focus-overlay-label">{labels[mode]}</p>
-      <div className="focus-overlay-ring" style={{ '--focus-progress': `${percent ?? 0}%` } as React.CSSProperties}>
+      <div className="focus-overlay-ring" style={{ '--focus-progress': `${percent ?? 0}%` } as CSSProperties}>
         <div className="focus-overlay-ring-inner">
           <div className="focus-overlay-time">{time}</div>
           <div className="focus-overlay-state">{running ? 'IN SESSION' : 'PAUSED'}</div>
