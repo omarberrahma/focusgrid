@@ -17,7 +17,7 @@
 ## UI components
 - `src/CloudBackupPanel.tsx`: cloud backup and restore panel.
 - `src/components/HabitList.tsx`: habits list, completion toggles, edit/delete actions, and add-habit UI.
-- `src/components/FocusTimer.tsx`: timer modes, timer controls, duration input, and focus-session summaries (state is owned by App).
+- `src/components/FocusTimer.tsx`: timer modes, timer controls, duration input, focus-mode entry, and focus-session summaries (state is owned by App).\n- `src/components/FocusOverlay.tsx`: full-viewport distraction-free timer overlay; receives timer state and actions from App.
 - `src/components/StatsOverview.tsx`: weekly summary tiles and top-habit insight.
 - `src/components/WeeklyChart.tsx`: weekly focus-minutes bar chart.
 - `src/components/ActivityHeatmap.tsx`: 12-week habit activity visualization.
@@ -36,3 +36,4 @@
 
 ## Stopwatch mode
 The `FocusTimer` component exposes a stopwatch option. `App` owns the mode and elapsed-seconds state; the timer effect counts upward while stopwatch mode is active. Switching modes clears the running state, and reset returns the stopwatch to zero. Stopwatch sessions are not yet added to the completed focus-session history.
+\n\n## Full-screen focus mode\n`App` owns the overlay visibility and timer state. `FocusOverlay` is a viewport-filling distraction-free presentation layer; it does not create a second timer. Countdown modes show remaining-time progress, while stopwatch mode uses an open-ended ring. Exiting the overlay leaves the active timer state unchanged.\n
