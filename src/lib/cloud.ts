@@ -23,6 +23,8 @@ export function validateBackup(value: unknown): value is FocusGridBackup {
   const historyValid = Object.entries(backup.history).every(([date, ids]) =>
     /^\d{4}-\d{2}-\d{2}$/.test(date) && Array.isArray(ids) && ids.every(id => typeof id === 'string'))
   const sessionsValid = backup.sessions.every(s => s && typeof s.id === 'string' &&
-    /^\d{4}-\d{2}-\d{2}$/.test(s.date) && Number.isFinite(s.minutes) && s.minutes > 0 && s.minutes <= 180)
+    /^\d{4}-\d{2}-\d{2}$/.test(s.date) && Number.isFinite(s.minutes) && s.minutes > 0 && s.minutes <= 180 &&
+    (s.habitId === undefined || typeof s.habitId === 'string') &&
+    (s.habitName === undefined || typeof s.habitName === 'string'))
   return habitsValid && historyValid && sessionsValid
 }
