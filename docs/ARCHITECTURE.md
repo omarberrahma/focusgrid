@@ -32,3 +32,7 @@
 - Small, incremental refactors: extract pure helpers before UI/state components.
 - Shared domain types: avoid duplicating data shapes across modules.
 - Keep persistence compatibility: preserve existing localStorage keys during refactors.
+
+
+## Stopwatch mode
+The `FocusTimer` component exposes a stopwatch option. `App` owns the mode and elapsed-seconds state; the timer effect counts upward while stopwatch mode is active. Switching modes clears the running state, and reset returns the stopwatch to zero. Stopwatch sessions are not yet added to the completed focus-session history.
