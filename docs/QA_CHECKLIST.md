@@ -80,3 +80,13 @@
 - [ ] Progress bars cap visually at 100% while totals may exceed the target.
 - [ ] Deleting or restoring focus sessions immediately recalculates goal progress.
 - [ ] Invalid saved goal values fall back safely and entered values stay within supported bounds.
+
+## Habit-linked focus sessions
+- [ ] Choose a habit before starting a focus timer or stopwatch.
+- [ ] Completed countdown sessions save the selected habit ID and name.
+- [ ] Stopwatch pause/reset/mode-switch saves keep the selected habit association.
+- [ ] Sessions started without a selected habit remain unlinked.
+- [ ] Session history and recent sessions show the linked habit label.
+- [ ] Renaming or deleting a habit does not erase historical session labels.
+- [ ] Older sessions without habit metadata continue loading.
+- [ ] Cloud backup and restore preserve optional habit links and reject malformed metadata.
