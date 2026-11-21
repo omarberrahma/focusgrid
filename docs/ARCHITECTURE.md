@@ -18,7 +18,8 @@
 - `src/CloudBackupPanel.tsx`: cloud backup and restore panel.
 - `src/components/HabitList.tsx`: habits list, completion toggles, edit/delete actions, and add-habit UI.
 - `src/components/FocusTimer.tsx`: timer modes, timer controls, duration input, focus-mode entry, and focus-session summaries (state is owned by App).
-- `src/components/FocusOverlay.tsx`: full-viewport distraction-free timer overlay; receives timer state and actions from App.\n- `src/components/SessionHistory.tsx`: date-grouped focus-session timeline with individual deletion.
+- `src/components/FocusOverlay.tsx`: full-viewport distraction-free timer overlay; receives timer state and actions from App.
+- `src/components/SessionHistory.tsx`: date-grouped focus-session timeline with individual deletion.
 - `src/components/StatsOverview.tsx`: weekly summary tiles and top-habit insight.
 - `src/components/WeeklyChart.tsx`: weekly focus-minutes bar chart.
 - `src/components/ActivityHeatmap.tsx`: 12-week habit activity visualization.
