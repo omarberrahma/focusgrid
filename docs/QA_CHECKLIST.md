@@ -63,3 +63,11 @@
 - [ ] Desktop sidebar navigation works.
 - [ ] Check cards, timer controls, inputs and charts at 320px, 390px, tablet and desktop widths.
 - [ ] Confirm no content is obscured by fixed mobile navigation.
+
+## Session history
+- [ ] Session history lists all saved focus sessions grouped by date, newest date first.
+- [ ] Each session displays its duration and can be deleted individually.
+- [ ] Deleting a session updates daily, weekly, all-time, and timeline totals immediately.
+- [ ] Empty history displays a helpful empty state.
+- [ ] Session records remain deleted after refresh and are reflected in cloud backups.
+- [ ] Session history remains readable at 320px, 390px, tablet, and desktop widths.
