@@ -1,6 +1,6 @@
 # FocusGrid
 
-A local-first, mobile-friendly habit and focus tracker. FocusGrid starts simple: habits, daily completion, streaks, and a GitHub-style activity grid. Share cards, analytics, PWA support, and cloud sync follow the roadmap.
+A local-first, mobile-friendly habit and focus tracker. FocusGrid helps build consistency through daily habits, focused work sessions, activity history, and shareable progress.
 
 ## Development
 ```bash
@@ -13,20 +13,24 @@ npm run dev
 - Local habit/history persistence and legacy habit migration
 - Current and longest streak
 - 12-week activity heatmap
-- Weekly stats: habit completion rate, focus minutes, top habit, and 7-day focus chart\n- Daily progress story card (1080×1920) with PNG export\n- Focus timer: 25-minute default, editable focus duration
-- Short (5m) and long (15m) break modes
-- Start, pause, reset
+- Weekly statistics: habit completion rate, focus minutes, top habit, and 7-day focus chart
+- Daily progress story card (1080 × 1920) with PNG export
+- Focus timer: 25-minute default, editable focus duration
+- Short (5-minute) and long (15-minute) break modes
+- Start, pause, and reset
 - Automatically records completed focus sessions locally
-- Today and all-time focus minutes, plus recent session list
-- Responsive dark-first UI
+- Today's and all-time focus minutes, plus recent sessions
+- PWA manifest, install prompt, and service worker caching for offline app shell
+- Online/offline status indicator
+- Responsive dark-first interface
 
 ## Roadmap
 1. Application scaffold — complete
 2. Habit engine and activity grid — complete
-3. Focus engine and session history — implemented; build/runtime verification pending
-4. Statistics and insights
-5. Share engine — daily story card and PNG export implemented; build verification pending\n6. Weekly/monthly share cards (PNG and 9:16 story)
-6. PWA / offline install
-7. Cloud sync and accounts (later)
+3. Focus engine and session history — implemented (build verification pending)
+4. Weekly statistics and insights — implemented (build verification pending)
+5. Share engine — daily story card and PNG export (build verification pending)
+6. PWA and offline support — implemented (installability and service worker; device testing pending)
+7. Cloud sync and accounts — later
 
 Built with React, TypeScript, Vite, and Lucide.
