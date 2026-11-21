@@ -22,3 +22,23 @@ html{scroll-behavior:smooth;scroll-padding-top:24px}
 #overview,#habits,#focus,#stats,#settings{scroll-margin-top:22px}
 .mobile-nav{display:none}
 @media(max-width:760px){.mobile-nav{position:fixed;z-index:30;left:10px;right:10px;bottom:10px;display:grid;grid-template-columns:repeat(5,1fr);gap:3px;padding:7px;border:1px solid #303b32;border-radius:16px;background:rgba(21,26,22,.96);backdrop-filter:blur(14px);box-shadow:0 8px 30px rgba(0,0,0,.35)}.mobile-nav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:45px;color:#91a097;text-decoration:none;font-size:9px;border-radius:10px}.mobile-nav a:active,.mobile-nav a:focus-visible{background:#27332a;color:#b7d8bd;outline:none}.main{padding-bottom:112px}}
+
+/* Milestone 18: distraction-free focus overlay */
+.focus-overlay{position:fixed;z-index:100;inset:0;min-height:100dvh;background:radial-gradient(ellipse at 50% 42%,#1d2b20 0%,#111711 58%,#0d120e 100%);color:#e9eee9;display:flex;flex-direction:column;padding:clamp(20px,4vw,48px);animation:focus-overlay-in .2s ease-out}
+.focus-overlay-top{display:flex;align-items:center;justify-content:space-between}
+.focus-overlay-brand{font-family:'Space Grotesk';font-weight:700;letter-spacing:2px;font-size:13px;color:#a8c9ae}
+.focus-overlay-brand span{color:#83b891;margin-right:8px}
+.focus-overlay-icon,.focus-overlay-secondary{display:grid;place-items:center;border:1px solid #354638;background:#202b22;color:#b9c9bc;border-radius:12px;width:44px;height:44px;cursor:pointer}
+.focus-overlay-center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.focus-overlay-label{font-size:11px;letter-spacing:3px;color:#91a398;font-weight:700;margin:0 0 28px}
+.focus-overlay-ring{width:min(66vw,340px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#83b891 var(--focus-progress),#2a382d 0);padding:7px;box-shadow:0 0 70px rgba(90,145,102,.08)}
+.focus-overlay-ring-inner{width:100%;height:100%;border-radius:50%;background:#131b15;border:1px solid #344638;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.focus-overlay-time{font-family:'Space Grotesk';font-size:clamp(54px,12vw,88px);font-weight:600;letter-spacing:-3px;font-variant-numeric:tabular-nums}
+.focus-overlay-state{font-size:10px;letter-spacing:2px;color:#83b891;margin-top:10px}
+.focus-overlay-caption{font-size:13px;color:#9aa99d;margin:28px 0 34px}
+.focus-overlay-controls{display:flex;align-items:center;gap:14px}
+.focus-overlay-primary{display:flex;align-items:center;justify-content:center;gap:10px;min-width:150px;height:52px;padding:0 22px;border:0;border-radius:14px;background:#83b891;color:#101711;font-weight:700;cursor:pointer}
+.focus-overlay-footer{text-align:center;color:#627368;font-size:9px;letter-spacing:2px;padding-bottom:4px}
+@keyframes focus-overlay-in{from{opacity:0}to{opacity:1}}
+@media(max-width:480px){.focus-overlay{padding:18px}.focus-overlay-ring{width:min(78vw,310px)}.focus-overlay-caption{max-width:260px;line-height:1.6}}
+@media(prefers-reduced-motion:reduce){.focus-overlay{animation:none}}
