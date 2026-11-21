@@ -4,6 +4,7 @@ import HabitList from './components/HabitList'
 import FocusTimer from './components/FocusTimer'
 import FocusOverlay from './components/FocusOverlay'
 import SessionHistory from './components/SessionHistory'
+import FocusGoals from './components/FocusGoals'
 import StatsOverview from './components/StatsOverview'
 import ActivityHeatmap from './components/ActivityHeatmap'
 import AppShell from './components/AppShell'
@@ -22,15 +23,19 @@ const defaultHabits: Habit[] = [
 ]
 const habitsKey = 'focusgrid-habits-v2', historyKey = 'focusgrid-history-v1'
 const sessionsKey = 'focusgrid-focus-sessions-v1'
+const goalsKey = 'focusgrid-goals-v1'
+type FocusGoalsSettings = { daily: number; weekly: number }
+const defaultGoals: FocusGoalsSettings = { daily: 120, weekly: 600 }
 function loadHabits(): Habit[] { try { const saved=localStorage.getItem(habitsKey); if(saved){const parsed=JSON.parse(saved);if(Array.isArray(parsed)){const valid=parsed.filter((h):h is Habit=>h&&typeof h.id==='string'&&typeof h.name==='string'&&typeof h.icon==='string').slice(0,5);if(valid.length)return valid}} const old=localStorage.getItem('focusgrid-habits-v1'); if(old){const parsed=JSON.parse(old);if(Array.isArray(parsed)){const valid=parsed.filter((h=>h&&typeof h.id==='string'&&typeof h.name==='string'&&typeof h.icon==='string')).slice(0,5);if(valid.length)return valid}} return defaultHabits.map(h=>({...h})) } catch { return defaultHabits.map(h=>({...h})) } }
 function loadHistory(): History { try { const parsed=JSON.parse(localStorage.getItem(historyKey)||'{}'); if(!parsed||typeof parsed!=='object'||Array.isArray(parsed))return {}; return Object.fromEntries(Object.entries(parsed).filter(([date,ids])=>/^\d{4}-\d{2}-\d{2}$/.test(date)&&Array.isArray(ids)).map(([date,ids])=>[date,(ids as unknown[]).filter(id=>typeof id==='string')])) as History } catch { return {} } }
 function loadSessions(): FocusSession[] { try { const parsed=JSON.parse(localStorage.getItem(sessionsKey)||'[]'); if(!Array.isArray(parsed))return []; return parsed.filter((s):s is FocusSession=>s&&typeof s.id==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(s.date)&&Number.isFinite(s.minutes)&&s.minutes>0&&s.minutes<=180) } catch { return [] } }
+function loadGoals(): FocusGoalsSettings { try { const saved=JSON.parse(localStorage.getItem(goalsKey)||'null'); if(!saved||typeof saved!=='object')return defaultGoals; const daily=Number(saved.daily),weekly=Number(saved.weekly); return {daily:Number.isFinite(daily)?Math.min(600,Math.max(15,Math.round(daily))):defaultGoals.daily,weekly:Number.isFinite(weekly)?Math.min(4200,Math.max(60,Math.round(weekly))):defaultGoals.weekly} } catch { return defaultGoals } }
 const modeMinutes: Record<Exclude<TimerMode,'stopwatch'>,number>={focus:25,short:5,long:15}
 export default function App() {
   const [installPrompt,setInstallPrompt]=useState<InstallPromptEvent|null>(null),[isOffline,setIsOffline]=useState(!navigator.onLine),[installed,setInstalled]=useState(window.matchMedia('(display-mode: standalone)').matches)
   useEffect(()=>{const handlePrompt=(e:Event)=>{e.preventDefault();setInstallPrompt(e as InstallPromptEvent)};const online=()=>setIsOffline(false),offline=()=>setIsOffline(true),installedEvt=()=>{setInstalled(true);setInstallPrompt(null)};window.addEventListener('beforeinstallprompt',handlePrompt);window.addEventListener('online',online);window.addEventListener('offline',offline);window.addEventListener('appinstalled',installedEvt);return()=>{window.removeEventListener('beforeinstallprompt',handlePrompt);window.removeEventListener('online',online);window.removeEventListener('offline',offline);window.removeEventListener('appinstalled',installedEvt)}},[])
   const installApp=async()=>{if(!installPrompt)return;await installPrompt.prompt();const choice=await installPrompt.userChoice;if(choice.outcome==='accepted')setInstallPrompt(null)}
-  const [habits,setHabits]=useState<Habit[]>(loadHabits),[history,setHistory]=useState<History>(loadHistory),[sessions,setSessions]=useState<FocusSession[]>(loadSessions),[newHabit,setNewHabit]=useState('')
+  const [habits,setHabits]=useState<Habit[]>(loadHabits),[history,setHistory]=useState<History>(loadHistory),[sessions,setSessions]=useState<FocusSession[]>(loadSessions),[newHabit,setNewHabit]=useState(''),[goals,setGoals]=useState<FocusGoalsSettings>(loadGoals)
   const [mode,setMode]=useState<TimerMode>('focus'),[focusLength,setFocusLength]=useState(25),[remaining,setRemaining]=useState(25*60),[running,setRunning]=useState(false),[fullscreen,setFullscreen]=useState(false),[stopwatchRecordedMinutes,setStopwatchRecordedMinutes]=useState(0)
   const [today,setToday]=useState(()=>new Date()),todayKey=dateKey(today),completedIds=history[todayKey]||[],completed=habits.filter(h=>completedIds.includes(h.id)).length,percentage=habits.length?Math.round(completed/habits.length*100):0
   const streak=useMemo(()=>calculateStreaks(history,today),[history,today])
@@ -39,12 +44,15 @@ export default function App() {
   useEffect(()=>localStorage.setItem(habitsKey,JSON.stringify(habits)),[habits])
   useEffect(()=>localStorage.setItem(historyKey,JSON.stringify(history)),[history])
   useEffect(()=>localStorage.setItem(sessionsKey,JSON.stringify(sessions)),[sessions])
+  useEffect(()=>localStorage.setItem(goalsKey,JSON.stringify(goals)),[goals])
   useEffect(()=>{if(!running)return;if(mode==='stopwatch'){const timer=window.setInterval(()=>setRemaining(r=>r+1),1000);return()=>window.clearInterval(timer)}const timer=window.setInterval(()=>setRemaining(r=>{if(r<=1){window.clearInterval(timer);setRunning(false);if(mode==='focus'){setSessions(prev=>[{id:crypto.randomUUID(),date:dateKey(new Date()),minutes:focusLength},...prev]);setMode('short');setRemaining(modeMinutes.short*60)}else{setMode('focus');setRemaining(focusLength*60)}return mode==='focus'?modeMinutes.short*60:focusLength*60}return r-1}),1000);return()=>window.clearInterval(timer)},[running,mode,focusLength])
   const heatmap=useMemo(()=>Array.from({length:84},(_,i)=>{const date=shiftDate(today,-83+i);const count=(history[dateKey(date)]||[]).filter(id=>habits.some(h=>h.id===id)).length;return {date,count}}),[today,history,habits])
   const weekDays=useMemo(()=>Array.from({length:7},(_,i)=>shiftDate(today,-6+i)),[today])
   const weeklyCompletions=weekDays.reduce((sum,d)=>sum+(history[dateKey(d)]||[]).filter(id=>habits.some(h=>h.id===id)).length,0)
   const weeklyRate=habits.length?Math.round(weeklyCompletions/(habits.length*7)*100):0
   const weeklyFocus=weekDays.reduce((sum,d)=>sum+sessions.filter(s=>s.date===dateKey(d)).reduce((m,s)=>m+s.minutes,0),0)
+  const updateDailyGoal=(minutes:number)=>setGoals(prev=>({...prev,daily:Math.min(600,Math.max(15,Number.isFinite(minutes)?Math.round(minutes):15))}))
+  const updateWeeklyGoal=(minutes:number)=>setGoals(prev=>({...prev,weekly:Math.min(4200,Math.max(60,Number.isFinite(minutes)?Math.round(minutes):60))}))
   const weeklyBars=weekDays.map(d=>({date:d,minutes:sessions.filter(s=>s.date===dateKey(d)).reduce((m,s)=>m+s.minutes,0)}))
   const maxBar=Math.max(1,...weeklyBars.map(d=>d.minutes))
   const bestHabit=habits.map(h=>({habit:h,count:weekDays.reduce((sum,d)=>sum+(history[dateKey(d)]||[]).filter(id=>id===h.id).length,0)})).sort((a,b)=>b.count-a.count)[0]
@@ -62,6 +70,7 @@ export default function App() {
   return <AppShell header={{isOffline, installPromptAvailable: Boolean(installPrompt), installed, dateLabel: today.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'}), onInstall: installApp}}>
   <section className="summary-grid"><div className="card progress-card"><div className="card-label"><span>DAILY PROGRESS</span><Activity size={17}/></div><div className="progress-number">{completed}<span> / {habits.length}</span></div><div className="progress-track"><div className="progress-fill" style={{width:percentage+'%'}}/></div><p>{percentage===100?'All done. Great consistency.':'Small wins add up. One step at a time.'}</p></div><div className="card streak-card"><div className="card-label"><span>ACTIVE STREAK</span><Flame size={17}/></div><div className="streak-value">{streak.current} <small>days</small></div><p>Longest streak: {streak.longest} days</p><div className="streak-decoration">✦</div></div></section>
   <FocusTimer mode={mode} remainingText={formatTime(remaining)} running={running} focusLength={focusLength} focusToday={focusToday} focusTotal={focusTotal} sessions={sessions} onModeChange={setTimerMode} onDurationChange={minutes=>{const val=Math.min(180,Math.max(1,minutes||1));setFocusLength(val);setRemaining(val*60)}} onToggle={toggleTimer} onReset={resetTimer} onEnterFullscreen={()=>setFullscreen(true)}/>{fullscreen&&<FocusOverlay mode={mode} time={formatTime(remaining)} running={running} progress={mode==='stopwatch'?null:Math.max(0,Math.min(1,1-remaining/((mode==='focus'?focusLength:modeMinutes[mode])*60)))} onToggle={toggleTimer} onReset={resetTimer} onExit={()=>setFullscreen(false)}/>}
+  <FocusGoals dailyGoal={goals.daily} weeklyGoal={goals.weekly} dailyMinutes={focusToday} weeklyMinutes={weeklyFocus} onDailyGoalChange={updateDailyGoal} onWeeklyGoalChange={updateWeeklyGoal}/>
   <SessionHistory sessions={sessions} onDelete={deleteSession}/>
   <HabitList habits={habits} completed={completed} completedIds={completedIds} newHabit={newHabit} onToggle={toggle} onEdit={editHabit} onDelete={deleteHabit} onNewHabitChange={setNewHabit} onAdd={addHabit}/>
   <section className="card share-card"><div className="section-head"><div><p className="eyebrow">MAKE PROGRESS VISIBLE</p><h2>Share your day</h2></div><span className="count-pill">1080 × 1920</span></div><div className="story-preview"><div className="story-brand">FOCUSGRID</div><div className="story-kicker">DAILY PROGRESS</div><div className="story-percent">{percentage}%</div><div className="story-sub">{completed} of {habits.length} habits completed</div><div className="story-progress"><span style={{width:percentage+'%'}}/></div><div className="story-metrics"><div><small>FOCUS TODAY</small><strong>{focusToday} min</strong></div><div><small>STREAK</small><strong>{streak.current} days</strong></div></div><div className="story-date">{today.toLocaleDateString(undefined,{month:'long',day:'numeric',year:'numeric'})}</div><div className="story-footer">Progress, not perfection.</div></div><button className="export-story" onClick={exportStory}><Share2 size={17}/> Export Story PNG</button><p className="muted small">Create a vertical story card from today's real progress and save it as an image.</p></section>
