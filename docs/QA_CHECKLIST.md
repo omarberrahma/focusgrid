@@ -15,6 +15,10 @@
 - [ ] Old habit storage key migrates and is capped at five valid habits.
 
 ## Focus timer
+- [ ] Stopwatch starts at 00:00 and counts upward once per second.
+- [ ] Pause and resume preserve elapsed stopwatch time.
+- [ ] Reset stops stopwatch and returns elapsed time to 00:00.
+- [ ] Switching between stopwatch and countdown modes stops the previous timer.
 - [ ] Start, pause, resume, and reset.
 - [ ] Switch modes while running; timer stops and selected mode duration resets.
 - [ ] Custom duration stays within 1–180 minutes.
