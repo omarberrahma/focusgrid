@@ -9,7 +9,7 @@
 
 ## Utilities
 - `src/lib/date.ts`: local date keys and day shifting.
-- `src/lib/habits.ts`: streak calculation.
+- `src/lib/habits.ts`: streak calculation, including explicitly protected dates.
 - `src/lib/cloud.ts`: backup serialization and payload validation.
 - `src/lib/cloudBackup.ts`: Supabase backup, restore, and auth operations.
 - `src/lib/supabase.ts`: optional Supabase client configuration.
@@ -50,3 +50,7 @@ The `FocusTimer` component exposes a stopwatch option. `App` owns the mode and e
 
 ## Habit-linked focus sessions
 `FocusSession` supports optional `habitId` and `habitName` fields. New focus blocks and saved stopwatch minutes capture the selected habit; the name snapshot keeps historical records readable if a habit is renamed or deleted. Older session records remain valid without these optional fields.
+
+
+## Streak freeze
+Protected calendar dates are stored separately from habit completion history under `focusgrid-streak-freezes-v1`. A user can manually protect yesterday when it has no completion, an existing streak is present, and fewer than two freezes have been used in the current calendar month. Protected dates contribute to current and longest streak calculations but never create a habit completion. New backups include the optional `freezes` array; older version-1 backups without it remain valid.
