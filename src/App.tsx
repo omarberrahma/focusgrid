@@ -28,8 +28,9 @@ export default function App() {
   const installApp=async()=>{if(!installPrompt)return;await installPrompt.prompt();const choice=await installPrompt.userChoice;if(choice.outcome==='accepted')setInstallPrompt(null)}
   const [habits,setHabits]=useState<Habit[]>(loadHabits),[history,setHistory]=useState<History>(loadHistory),[sessions,setSessions]=useState<FocusSession[]>(loadSessions),[newHabit,setNewHabit]=useState('')
   const [mode,setMode]=useState<TimerMode>('focus'),[focusLength,setFocusLength]=useState(25),[remaining,setRemaining]=useState(25*60),[running,setRunning]=useState(false)
-  const [today]=useState(()=>new Date()),todayKey=dateKey(today),completedIds=history[todayKey]||[],completed=habits.filter(h=>completedIds.includes(h.id)).length,percentage=habits.length?Math.round(completed/habits.length*100):0
+  const [today,setToday]=useState(()=>new Date()),todayKey=dateKey(today),completedIds=history[todayKey]||[],completed=habits.filter(h=>completedIds.includes(h.id)).length,percentage=habits.length?Math.round(completed/habits.length*100):0
   const streak=useMemo(()=>streaks(history,today),[history,today])
+  useEffect(()=>{const checkDate=()=>{const now=new Date();if(dateKey(now)!==dateKey(today))setToday(now)};const interval=window.setInterval(checkDate,60000);return()=>window.clearInterval(interval)},[today])
   const focusToday=sessions.filter(s=>s.date===todayKey).reduce((sum,s)=>sum+s.minutes,0),focusTotal=sessions.reduce((sum,s)=>sum+s.minutes,0)
   useEffect(()=>localStorage.setItem(habitsKey,JSON.stringify(habits)),[habits])
   useEffect(()=>localStorage.setItem(historyKey,JSON.stringify(history)),[history])
