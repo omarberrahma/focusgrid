@@ -42,3 +42,21 @@ html{scroll-behavior:smooth;scroll-padding-top:24px}
 @keyframes focus-overlay-in{from{opacity:0}to{opacity:1}}
 @media(max-width:480px){.focus-overlay{padding:18px}.focus-overlay-ring{width:min(78vw,310px)}.focus-overlay-caption{max-width:260px;line-height:1.6}}
 @media(prefers-reduced-motion:reduce){.focus-overlay{animation:none}}
+
+/* Milestone 20: session history timeline */
+.session-history-card{margin-bottom:18px}
+.session-history-groups{display:grid;gap:18px}
+.session-day{display:grid;gap:7px}
+.session-day-heading{display:flex;justify-content:space-between;align-items:center;padding:0 2px 7px;border-bottom:1px solid #2a342c;color:#a9b8ac;font-size:12px;font-weight:700}
+.session-day-heading span:last-child{color:#83b891;font-variant-numeric:tabular-nums}
+.session-history-row{display:flex;align-items:center;gap:12px;padding:10px 8px;border:1px solid #283129;background:#202721;border-radius:11px}
+.session-history-icon{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;background:#2b3a2e;color:#91c39b}
+.session-history-info{flex:1;min-width:0}
+.session-history-info strong,.session-history-info span{display:block}
+.session-history-info strong{font-size:12px;color:#dce8dd;font-weight:600}
+.session-history-info span{font-size:11px;color:#89978d;margin-top:3px}
+.session-delete{width:36px;height:36px;display:grid;place-items:center;border:1px solid #3a302d;border-radius:9px;background:#2b2523;color:#c59a8d;cursor:pointer}
+.session-delete:hover{background:#3a2b28;color:#e2b2a3}
+.session-history-empty{min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#718075}
+.session-history-empty p{margin:10px 0 4px;color:#c5d0c7;font-size:13px;font-weight:600}
+.session-history-empty span{font-size:11px}
