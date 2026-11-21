@@ -2,13 +2,13 @@ import { supabase, cloudEnabled } from './supabase'
 import { createBackup, validateBackup } from './cloud'
 import type { Habit, History, FocusSession } from '../types'
 
-export async function uploadBackup(habits: Habit[], history: History, sessions: FocusSession[]) {
+export async function uploadBackup(habits: Habit[], history: History, sessions: FocusSession[], freezes: string[] = []) {
   if (!supabase || !cloudEnabled) throw new Error('Cloud is not configured. Add Supabase environment variables.')
   const { data: userData, error: authError } = await supabase.auth.getUser()
   if (authError) throw authError
   const user = userData.user
   if (!user) throw new Error('Sign in to back up your FocusGrid data.')
-  const payload = createBackup(habits, history, sessions)
+  const payload = createBackup(habits, history, sessions, freezes)
   const { error } = await supabase.from('focusgrid_backups').upsert({
     user_id: user.id,
     payload,
