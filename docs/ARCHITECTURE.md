@@ -16,7 +16,8 @@
 
 ## UI components
 - `src/CloudBackupPanel.tsx`: cloud backup and restore panel.
-- `src/App.tsx`: currently contains the main dashboard, habit controls, focus timer, statistics, activity heatmap, and story export. It remains the largest component and is a target for gradual extraction.
+- `src/components/HabitList.tsx`: habits list, completion toggles, edit/delete actions, and add-habit UI.
+- `src/App.tsx`: main dashboard orchestration, focus timer, statistics, activity heatmap, and story export. Habit UI is extracted; this remains a gradual refactor target.
 
 ## Design principles
 - Local-first: core habit and focus features work without cloud configuration.
