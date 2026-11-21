@@ -35,5 +35,5 @@
 
 
 ## Stopwatch mode
-The `FocusTimer` component exposes a stopwatch option. `App` owns the mode and elapsed-seconds state; the timer effect counts upward while stopwatch mode is active. Switching modes clears the running state, and reset returns the stopwatch to zero. Stopwatch sessions are not yet added to the completed focus-session history.
+The `FocusTimer` component exposes a stopwatch option. `App` owns the mode and elapsed-seconds state; the timer effect counts upward while stopwatch mode is active. Switching modes clears the running state, and reset returns the stopwatch to zero. When paused, reset, or switched to another mode, newly completed whole minutes are appended to focus history. Long elapsed periods are split into records of at most 180 minutes to remain compatible with local storage and cloud backup validation. Partial minutes are not saved.
 \n\n## Full-screen focus mode\n`App` owns the overlay visibility and timer state. `FocusOverlay` is a viewport-filling distraction-free presentation layer; it does not create a second timer. Countdown modes show remaining-time progress, while stopwatch mode uses an open-ended ring. Exiting the overlay leaves the active timer state unchanged.\n
