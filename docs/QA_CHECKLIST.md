@@ -71,3 +71,12 @@
 - [ ] Empty history displays a helpful empty state.
 - [ ] Session records remain deleted after refresh and are reflected in cloud backups.
 - [ ] Session history remains readable at 320px, 390px, tablet, and desktop widths.
+
+## Focus goals
+- [ ] Daily and 7-day targets load with defaults on first launch (120 and 600 minutes).
+- [ ] Goal changes persist after refresh and remain available offline.
+- [ ] Daily progress uses today's saved focus sessions.
+- [ ] 7-day progress matches the rolling seven-day statistics window.
+- [ ] Progress bars cap visually at 100% while totals may exceed the target.
+- [ ] Deleting or restoring focus sessions immediately recalculates goal progress.
+- [ ] Invalid saved goal values fall back safely and entered values stay within supported bounds.
