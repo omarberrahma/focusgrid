@@ -5,7 +5,8 @@ import './styles.css'
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch(error => console.error('FocusGrid service worker registration failed:', error))
+    navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`, { scope: import.meta.env.BASE_URL })
+      .catch(error => console.error('FocusGrid service worker registration failed:', error))
   })
 }
 
