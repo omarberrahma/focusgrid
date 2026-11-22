@@ -19,10 +19,10 @@ import { Activity, Flame, Share2, Sun, Moon } from 'lucide-react'
 type TimerMode = 'focus' | 'short' | 'long' | 'stopwatch'
 type InstallPromptEvent = Event & { prompt: () => Promise<void>; userChoice: Promise<{ outcome: 'accepted' | 'dismissed'; platform: string }> }
 const defaultHabits: Habit[] = [
-  { id: 'read', name: 'Read for 20 minutes', icon: '📚' },
-  { id: 'move', name: 'Move your body', icon: '🏃' },
-  { id: 'learn', name: 'Learn something', icon: '🧠' },
-  { id: 'journal', name: 'Journal', icon: '✍️' },
+  { id: 'read', name: 'Read for 20 minutes', icon: '📚', category: 'learning' },
+  { id: 'move', name: 'Move your body', icon: '🏃', category: 'health' },
+  { id: 'learn', name: 'Learn something', icon: '🧠', category: 'learning' },
+  { id: 'journal', name: 'Journal', icon: '✍️', category: 'mind' },
 ]
 const habitsKey = 'focusgrid-habits-v2', historyKey = 'focusgrid-history-v1'
 const sessionsKey = 'focusgrid-focus-sessions-v1'
@@ -43,7 +43,7 @@ export default function App() {
   const installApp=async()=>{if(!installPrompt)return;await installPrompt.prompt();const choice=await installPrompt.userChoice;if(choice.outcome==='accepted')setInstallPrompt(null)}
   const [showWelcome,setShowWelcome]=useState(()=>{try{return localStorage.getItem('focusgrid-welcome-v1')!=='done'}catch{return false}})
   const finishWelcome=()=>{try{localStorage.setItem('focusgrid-welcome-v1','done')}catch{};setShowWelcome(false)}
-  const [habits,setHabits]=useState<Habit[]>(loadHabits),[history,setHistory]=useState<History>(loadHistory),[sessions,setSessions]=useState<FocusSession[]>(loadSessions),[newHabit,setNewHabit]=useState(''),[goals,setGoals]=useState<FocusGoalsSettings>(loadGoals),[selectedHabitId,setSelectedHabitId]=useState(''),[frozenDates,setFrozenDates]=useState<string[]>(loadFreezes()),[theme,setTheme]=useState<Theme>(loadTheme)
+  const [habits,setHabits]=useState<Habit[]>(loadHabits),[history,setHistory]=useState<History>(loadHistory),[sessions,setSessions]=useState<FocusSession[]>(loadSessions),[newHabit,setNewHabit]=useState(''),[newHabitCategory,setNewHabitCategory]=useState<'learning'|'health'|'mind'|'work'|'other'>('other'),[goals,setGoals]=useState<FocusGoalsSettings>(loadGoals),[selectedHabitId,setSelectedHabitId]=useState(''),[frozenDates,setFrozenDates]=useState<string[]>(loadFreezes()),[theme,setTheme]=useState<Theme>(loadTheme)
   const [mode,setMode]=useState<TimerMode>('focus'),[focusLength,setFocusLength]=useState(25),[remaining,setRemaining]=useState(25*60),[running,setRunning]=useState(false),[fullscreen,setFullscreen]=useState(false),[stopwatchRecordedMinutes,setStopwatchRecordedMinutes]=useState(0)
   const [today,setToday]=useState(()=>new Date()),todayKey=dateKey(today),completedIds=history[todayKey]||[],completed=habits.filter(h=>completedIds.includes(h.id)).length,percentage=habits.length?Math.round(completed/habits.length*100):0
   const streak=useMemo(()=>calculateStreaks(history,today,frozenDates),[history,today,frozenDates])
@@ -73,7 +73,7 @@ export default function App() {
   const yesterdayKey=dateKey(shiftDate(today,-1)),dayBeforeYesterdayKey=dateKey(shiftDate(today,-2)),freezeMonth=todayKey.slice(0,7),freezesUsedThisMonth=frozenDates.filter(date=>date.slice(0,7)===freezeMonth).length,hasRecentStreak=(history[todayKey]||[]).length>0||(history[dayBeforeYesterdayKey]||[]).length>0||frozenDates.includes(dayBeforeYesterdayKey),canUseFreeze=!(history[yesterdayKey]||[]).length&&!frozenDates.includes(yesterdayKey)&&freezesUsedThisMonth<2&&hasRecentStreak
   const useStreakFreeze=()=>{if(canUseFreeze)setFrozenDates(prev=>[...prev,yesterdayKey].sort())}
   const toggle= (id:string)=>setHistory(prev=>{const day=prev[todayKey]||[],next=day.includes(id)?day.filter(x=>x!==id):[...day,id];return {...prev,[todayKey]:next}})
-  const addHabit=()=>{const name=newHabit.trim();if(!name||habits.length>=5)return;setHabits(prev=>[...prev,{id:crypto.randomUUID(),name,icon:'✨'}]);setNewHabit('')}
+  const addHabit=()=>{const name=newHabit.trim();if(!name||habits.length>=5)return;setHabits(prev=>[...prev,{id:crypto.randomUUID(),name,icon:'✨',category:newHabitCategory}]);setNewHabit('')}
   const editHabit=(h:Habit)=>{const name=window.prompt('Edit habit name',h.name)?.trim();if(name)setHabits(prev=>prev.map(x=>x.id===h.id?{...x,name}:x))}
   const deleteHabit=(h:Habit)=>{if(!window.confirm(`Delete "${h.name}" and its completion history?`))return;setHabits(prev=>prev.filter(x=>x.id!==h.id));setHistory(prev=>Object.fromEntries(Object.entries(prev).map(([date,ids])=>[date,ids.filter(id=>id!==h.id)])))}
   const resetTimer=()=>{if(mode==='stopwatch')saveStopwatchProgress();setRunning(false);setStopwatchRecordedMinutes(0);setRemaining(mode==='stopwatch'?0:mode==='focus'?focusLength*60:modeMinutes[mode]*60)}
