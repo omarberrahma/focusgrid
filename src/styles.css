@@ -220,3 +220,14 @@ html{scroll-behavior:smooth;scroll-padding-top:24px}
 [data-theme="light"] .welcome-features>div{background:#f4efe5;border-color:#e3dacb}
 [data-theme="light"] .welcome-features span{color:#716c60}
 @media(max-width:520px){.welcome-screen{padding:14px}.welcome-card{padding:22px;border-radius:18px}.welcome-brand{margin-bottom:28px}.welcome-features{grid-template-columns:1fr}.welcome-features>div{flex-direction:row;align-items:flex-start;flex-wrap:wrap}.welcome-features strong{margin-right:auto}.welcome-features span{width:100%}}
+
+/* Habit categories */
+.habit-category-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.habit-category-tabs button{border:1px solid #2c362e;background:#151b16;color:#95a197;border-radius:999px;padding:7px 11px;font-size:11px;cursor:pointer}
+.habit-category-tabs button.selected{background:#26362a;border-color:#46634b;color:#b8d9bf}
+.habit-category-add{display:flex;align-items:center;gap:9px;margin-top:10px;color:#87958b;font-size:11px}
+.habit-category-add select{border:1px solid #2c362e;background:#151b16;color:#dce5dd;border-radius:9px;padding:8px 10px;font-size:12px}
+[data-theme="light"] .habit-category-tabs button{background:#fffaf0;border-color:#e1d8c8;color:#716c60}
+[data-theme="light"] .habit-category-tabs button.selected{background:#e3eee4;border-color:#86b891;color:#315b3a}
+[data-theme="light"] .habit-category-add select{background:#fffaf0;border-color:#e0d7c8;color:#38352e}
+@media(max-width:480px){.habit-category-add{align-items:flex-start;flex-direction:column}.habit-category-add select{width:100%}}
