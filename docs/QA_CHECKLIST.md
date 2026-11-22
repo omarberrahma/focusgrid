@@ -114,3 +114,12 @@
 - [ ] Empty freeze history displays a clear empty state.
 - [ ] Calendar and freeze history update immediately after using a freeze and after cloud restore.
 - [ ] Layout remains usable at 320px, 390px, tablet, and desktop widths.
+
+
+## Appearance themes
+- [ ] First launch defaults to dark appearance.
+- [ ] Switching to warm light updates the dashboard, navigation, forms, cards, calendar, history, and focus overlay.
+- [ ] Switching back to dark restores the original dark palette.
+- [ ] Theme preference persists after refresh and app restart.
+- [ ] Theme selection remains usable at 320px, 390px, tablet, and desktop widths.
+- [ ] Story preview and exported PNG retain their branded dark design regardless of workspace theme.
