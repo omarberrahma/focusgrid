@@ -8,6 +8,8 @@
 ## Local data
 - [ ] Start with empty storage: defaults load without errors.
 - [ ] Add habits until 5; sixth is blocked.
+- [ ] Edit habits: change name, icon, category; save and verify completion history and linked sessions stay attached.
+- [ ] Cancel the editor and confirm no changes are saved.
 - [ ] Edit and delete habits; deleted habit IDs are removed from every date's history.
 - [ ] Toggle a habit repeatedly; each toggle updates only today's entry.
 - [ ] Refresh: habits, history, and focus sessions persist.
