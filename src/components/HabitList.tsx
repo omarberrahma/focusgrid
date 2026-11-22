@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Check, Circle, Plus, Pencil, Trash2 } from 'lucide-react'
 import type { Habit, HabitCategory } from '../types'
 
