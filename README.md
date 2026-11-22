@@ -9,7 +9,7 @@ npm run dev
 ```
 
 ## Current features
-- Daily habits: create, edit, delete, and check off (limit: 5)
+- Daily habits: create, edit, delete, check off, and filter by category (limit: 5)\n- Habit categories: Learning, Health, Mind, Work, and Other
 - Local habit/history persistence and legacy habit migration
 - Current and longest streak
 - Manual streak freeze: protect one missed previous day, with 2 uses per calendar month
