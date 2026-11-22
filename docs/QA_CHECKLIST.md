@@ -123,3 +123,10 @@
 - [ ] Theme preference persists after refresh and app restart.
 - [ ] Theme selection remains usable at 320px, 390px, tablet, and desktop widths.
 - [ ] Story preview and exported PNG retain their branded dark design regardless of workspace theme.
+
+
+## Onboarding
+- [ ] Fresh install shows welcome screen once.
+- [ ] Welcome feature cards are legible on small mobile screens.
+- [ ] Get started opens the app and the welcome screen stays dismissed after reload.
+- [ ] Light theme styling is readable when selected.
