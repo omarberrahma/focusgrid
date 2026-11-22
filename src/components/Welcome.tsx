@@ -1,0 +1,6 @@
+import { ArrowRight, CheckCircle2, Target, Timer, Flame } from 'lucide-react'
+
+type Props = { onStart: () => void }
+export default function Welcome({ onStart }: Props) {
+  return <div className="welcome-screen"><div className="welcome-card"><div className="welcome-brand"><span className="brand-mark">F</span> focus<span className="brand-accent">grid</span></div><p className="eyebrow">A FRESH START, ONE DAY AT A TIME</p><h1>Progress, not perfection.</h1><p className="welcome-copy">Build consistency with a few meaningful habits and focused work sessions. Keep it simple, and keep showing up.</p><div className="welcome-features"><div><Target/><strong>Daily habits</strong><span>Choose up to five things that matter.</span></div><div><Timer/><strong>Focus sessions</strong><span>Work with a timer or open-ended stopwatch.</span></div><div><Flame/><strong>Track consistency</strong><span>See your streaks and progress over time.</span></div></div><div className="welcome-note"><CheckCircle2 size={17}/> Your progress stays on this device. You can explore and change everything anytime.</div><button className="welcome-start" onClick={onStart}>Get started <ArrowRight size={18}/></button></div></div>
+}
