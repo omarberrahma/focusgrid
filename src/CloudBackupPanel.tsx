@@ -38,7 +38,7 @@ export default function CloudBackupPanel({ habits, history, sessions, freezes, o
   const restore = async () => {
     if (!window.confirm('Replace your current local FocusGrid data with the cloud backup?')) return
     setBusy(true); setStatus('')
-    try { const backup = await downloadBackup(); onRestore(backup); setStatus('Backup restored. Refresh if any screen does not update.') }
+    try { const backup = await downloadBackup(); onRestore(backup); setStatus('Backup restored successfully. Your local data has been replaced.') }
     catch (e) { setStatus(e instanceof Error ? e.message : 'Restore failed.') }
     finally { setBusy(false) }
   }
