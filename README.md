@@ -29,7 +29,8 @@ npm run dev
 - Editable daily and rolling 7-day focus-minute goals with persistent progress tracking
 - PWA manifest, install prompt, and service worker caching for offline app shell
 - Online/offline status indicator
-- Responsive dark-first interface
+- Persistent Dark and Warm Light appearance themes
+- Responsive mobile-first interface
 - Defensive local storage parsing and backup payload validation
 - Automatic date rollover refresh while the app remains open
 
@@ -56,6 +57,7 @@ npm run dev
 20. Habit-linked focus sessions — associate timer and stopwatch records with a habit
 21. Streak freeze — manually protect a missed day, with a two-use monthly allowance
 22. Streak calendar — monthly completion view and chronological freeze history
+23. Appearance themes — persistent dark and warm light modes
 
 See [QA checklist](docs/QA_CHECKLIST.md) before release. See [architecture guide](docs/ARCHITECTURE.md) for module boundaries. Build and device testing are not yet verified.
 
