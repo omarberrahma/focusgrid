@@ -16,6 +16,7 @@
 
 ## UI components
 - `src/CloudBackupPanel.tsx`: cloud backup and restore panel.
+- `src/components/HabitEditor.tsx`: modal editor for habit name, icon, and category; preserves habit identity when saving.
 - `src/components/HabitList.tsx`: habits list, category filters, completion toggles, edit/delete actions, and add-habit UI. Categories are optional for backward compatibility.
 - `src/components/FocusTimer.tsx`: timer modes, timer controls, duration input, focus-mode entry, and focus-session summaries (state is owned by App).
 - `src/components/FocusOverlay.tsx`: full-viewport distraction-free timer overlay; receives timer state and actions from App.
