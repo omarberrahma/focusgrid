@@ -198,3 +198,25 @@ html{scroll-behavior:smooth;scroll-padding-top:24px}
 :root[data-theme="light"] .theme-option span strong{color:#39473c}
 :root[data-theme="light"] .theme-option span small{color:#7b887d}
 @media(max-width:420px){.theme-options{grid-template-columns:1fr}}
+
+/* First-launch welcome */
+.welcome-screen{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:24px;background:rgba(12,16,13,.92);backdrop-filter:blur(12px);overflow:auto}
+.welcome-card{width:min(100%,620px);border:1px solid #2b382e;background:#171e18;border-radius:24px;padding:clamp(22px,5vw,44px);box-shadow:0 24px 80px rgba(0,0,0,.35)}
+.welcome-brand{display:flex;align-items:center;gap:8px;font-family:'Space Grotesk';font-weight:700;font-size:20px;margin-bottom:38px}
+.welcome-card .eyebrow{margin-bottom:12px;color:#83b891}
+.welcome-card h1{font-family:'Space Grotesk';font-size:clamp(32px,6vw,46px);letter-spacing:-1.5px;margin:0}
+.welcome-copy{color:#9ba89e;line-height:1.65;font-size:14px;max-width:480px;margin:14px 0 26px}
+.welcome-features{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.welcome-features>div{display:flex;flex-direction:column;gap:8px;border:1px solid #2b352d;background:#202821;border-radius:14px;padding:14px}
+.welcome-features svg{color:#83b891;width:20px;height:20px}
+.welcome-features strong{font-size:13px}
+.welcome-features span{font-size:11px;color:#93a096;line-height:1.5}
+.welcome-note{display:flex;align-items:flex-start;gap:8px;color:#93a096;font-size:11px;line-height:1.5;margin:22px 0}
+.welcome-note svg{flex-shrink:0;color:#83b891}
+.welcome-start{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:12px;background:#83b891;color:#111913;padding:14px;font-weight:700;cursor:pointer}
+[data-theme="light"] .welcome-screen{background:rgba(44,40,32,.7)}
+[data-theme="light"] .welcome-card{background:#fffaf0;border-color:#e2d9c9;color:#302e28}
+[data-theme="light"] .welcome-copy,[data-theme="light"] .welcome-note{color:#706d62}
+[data-theme="light"] .welcome-features>div{background:#f4efe5;border-color:#e3dacb}
+[data-theme="light"] .welcome-features span{color:#716c60}
+@media(max-width:520px){.welcome-screen{padding:14px}.welcome-card{padding:22px;border-radius:18px}.welcome-brand{margin-bottom:28px}.welcome-features{grid-template-columns:1fr}.welcome-features>div{flex-direction:row;align-items:flex-start;flex-wrap:wrap}.welcome-features strong{margin-right:auto}.welcome-features span{width:100%}}
