@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import type { FormEvent } from 'react'
 import type { Habit, HabitCategory } from '../types'
 import { X } from 'lucide-react'
 
@@ -14,7 +15,7 @@ export default function HabitEditor({ habit, onSave, onCancel }: Props) {
   const [category, setCategory] = useState<HabitCategory>(habit?.category ?? 'other')
   useEffect(() => { setName(habit?.name ?? ''); setIcon(habit?.icon ?? '✨'); setCategory(habit?.category ?? 'other') }, [habit])
   if (!habit) return null
-  const submit = (e: React.FormEvent) => { e.preventDefault(); const clean = name.trim(); if (clean) onSave(clean, icon, category) }
+  const submit = (e: FormEvent) => { e.preventDefault(); const clean = name.trim(); if (clean) onSave(clean, icon, category) }
   return <div className="habit-editor-backdrop" onMouseDown={e => { if (e.target === e.currentTarget) onCancel() }}>
     <form className="habit-editor" role="dialog" aria-modal="true" aria-labelledby="habit-editor-title" onSubmit={submit}>
       <header className="habit-editor-header"><div><p className="eyebrow">PERSONALIZE ROUTINE</p><h2 id="habit-editor-title">Edit habit</h2></div><button type="button" className="habit-editor-close" onClick={onCancel} aria-label="Close"><X size={18}/></button></header>
