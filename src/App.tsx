@@ -13,7 +13,7 @@ import AppShell from './components/AppShell'
 import { dateKey, shiftDate } from './lib/date'
 import { calculateStreaks } from './lib/habits'
 import type { Habit, History, FocusSession } from './types'
-import { Activity, Flame, Share2 } from 'lucide-react'
+import { Activity, Flame, Share2, Sun, Moon } from 'lucide-react'
 
 type TimerMode = 'focus' | 'short' | 'long' | 'stopwatch'
 type InstallPromptEvent = Event & { prompt: () => Promise<void>; userChoice: Promise<{ outcome: 'accepted' | 'dismissed'; platform: string }> }
@@ -25,7 +25,9 @@ const defaultHabits: Habit[] = [
 ]
 const habitsKey = 'focusgrid-habits-v2', historyKey = 'focusgrid-history-v1'
 const sessionsKey = 'focusgrid-focus-sessions-v1'
-const goalsKey = 'focusgrid-goals-v1', freezesKey = 'focusgrid-streak-freezes-v1'
+const goalsKey = 'focusgrid-goals-v1', freezesKey = 'focusgrid-streak-freezes-v1', themeKey = 'focusgrid-theme-v1'
+type Theme = 'dark' | 'light'
+function loadTheme(): Theme { try { return localStorage.getItem(themeKey) === 'light' ? 'light' : 'dark' } catch { return 'dark' } }
 type FocusGoalsSettings = { daily: number; weekly: number }
 const defaultGoals: FocusGoalsSettings = { daily: 120, weekly: 600 }
 function loadHabits(): Habit[] { try { const saved=localStorage.getItem(habitsKey); if(saved){const parsed=JSON.parse(saved);if(Array.isArray(parsed)){const valid=parsed.filter((h):h is Habit=>h&&typeof h.id==='string'&&typeof h.name==='string'&&typeof h.icon==='string').slice(0,5);if(valid.length)return valid}} const old=localStorage.getItem('focusgrid-habits-v1'); if(old){const parsed=JSON.parse(old);if(Array.isArray(parsed)){const valid=parsed.filter((h=>h&&typeof h.id==='string'&&typeof h.name==='string'&&typeof h.icon==='string')).slice(0,5);if(valid.length)return valid}} return defaultHabits.map(h=>({...h})) } catch { return defaultHabits.map(h=>({...h})) } }
@@ -38,7 +40,7 @@ export default function App() {
   const [installPrompt,setInstallPrompt]=useState<InstallPromptEvent|null>(null),[isOffline,setIsOffline]=useState(!navigator.onLine),[installed,setInstalled]=useState(window.matchMedia('(display-mode: standalone)').matches)
   useEffect(()=>{const handlePrompt=(e:Event)=>{e.preventDefault();setInstallPrompt(e as InstallPromptEvent)};const online=()=>setIsOffline(false),offline=()=>setIsOffline(true),installedEvt=()=>{setInstalled(true);setInstallPrompt(null)};window.addEventListener('beforeinstallprompt',handlePrompt);window.addEventListener('online',online);window.addEventListener('offline',offline);window.addEventListener('appinstalled',installedEvt);return()=>{window.removeEventListener('beforeinstallprompt',handlePrompt);window.removeEventListener('online',online);window.removeEventListener('offline',offline);window.removeEventListener('appinstalled',installedEvt)}},[])
   const installApp=async()=>{if(!installPrompt)return;await installPrompt.prompt();const choice=await installPrompt.userChoice;if(choice.outcome==='accepted')setInstallPrompt(null)}
-  const [habits,setHabits]=useState<Habit[]>(loadHabits),[history,setHistory]=useState<History>(loadHistory),[sessions,setSessions]=useState<FocusSession[]>(loadSessions),[newHabit,setNewHabit]=useState(''),[goals,setGoals]=useState<FocusGoalsSettings>(loadGoals),[selectedHabitId,setSelectedHabitId]=useState(''),[frozenDates,setFrozenDates]=useState<string[]>(loadFreezes())
+  const [habits,setHabits]=useState<Habit[]>(loadHabits),[history,setHistory]=useState<History>(loadHistory),[sessions,setSessions]=useState<FocusSession[]>(loadSessions),[newHabit,setNewHabit]=useState(''),[goals,setGoals]=useState<FocusGoalsSettings>(loadGoals),[selectedHabitId,setSelectedHabitId]=useState(''),[frozenDates,setFrozenDates]=useState<string[]>(loadFreezes()),[theme,setTheme]=useState<Theme>(loadTheme)
   const [mode,setMode]=useState<TimerMode>('focus'),[focusLength,setFocusLength]=useState(25),[remaining,setRemaining]=useState(25*60),[running,setRunning]=useState(false),[fullscreen,setFullscreen]=useState(false),[stopwatchRecordedMinutes,setStopwatchRecordedMinutes]=useState(0)
   const [today,setToday]=useState(()=>new Date()),todayKey=dateKey(today),completedIds=history[todayKey]||[],completed=habits.filter(h=>completedIds.includes(h.id)).length,percentage=habits.length?Math.round(completed/habits.length*100):0
   const streak=useMemo(()=>calculateStreaks(history,today,frozenDates),[history,today,frozenDates])
@@ -49,6 +51,7 @@ export default function App() {
   useEffect(()=>localStorage.setItem(sessionsKey,JSON.stringify(sessions)),[sessions])
   useEffect(()=>localStorage.setItem(goalsKey,JSON.stringify(goals)),[goals])
   useEffect(()=>localStorage.setItem(freezesKey,JSON.stringify(frozenDates)),[frozenDates])
+  useEffect(()=>{document.documentElement.dataset.theme=theme;try{localStorage.setItem(themeKey,theme)}catch{}},[theme])
   useEffect(()=>{if(!running)return;if(mode==='stopwatch'){const timer=window.setInterval(()=>setRemaining(r=>r+1),1000);return()=>window.clearInterval(timer)}const timer=window.setInterval(()=>setRemaining(r=>{if(r<=1){window.clearInterval(timer);setRunning(false);if(mode==='focus'){setSessions(prev=>[{id:crypto.randomUUID(),date:dateKey(new Date()),minutes:focusLength,...(habits.find(h=>h.id===selectedHabitId)?{habitId:selectedHabitId,habitName:habits.find(h=>h.id===selectedHabitId)!.name}:{})},...prev]);setMode('short');setRemaining(modeMinutes.short*60)}else{setMode('focus');setRemaining(focusLength*60)}return mode==='focus'?modeMinutes.short*60:focusLength*60}return r-1}),1000);return()=>window.clearInterval(timer)},[running,mode,focusLength,habits,selectedHabitId])
   const heatmap=useMemo(()=>Array.from({length:84},(_,i)=>{const date=shiftDate(today,-83+i);const count=(history[dateKey(date)]||[]).filter(id=>habits.some(h=>h.id===id)).length;return {date,count}}),[today,history,habits])
   const weekDays=useMemo(()=>Array.from({length:7},(_,i)=>shiftDate(today,-6+i)),[today])
@@ -81,7 +84,7 @@ export default function App() {
   <SessionHistory sessions={sessions} onDelete={deleteSession}/>
   <HabitList habits={habits} completed={completed} completedIds={completedIds} newHabit={newHabit} onToggle={toggle} onEdit={editHabit} onDelete={deleteHabit} onNewHabitChange={setNewHabit} onAdd={addHabit}/>
   <section className="card share-card"><div className="section-head"><div><p className="eyebrow">MAKE PROGRESS VISIBLE</p><h2>Share your day</h2></div><span className="count-pill">1080 × 1920</span></div><div className="story-preview"><div className="story-brand">FOCUSGRID</div><div className="story-kicker">DAILY PROGRESS</div><div className="story-percent">{percentage}%</div><div className="story-sub">{completed} of {habits.length} habits completed</div><div className="story-progress"><span style={{width:percentage+'%'}}/></div><div className="story-metrics"><div><small>FOCUS TODAY</small><strong>{focusToday} min</strong></div><div><small>STREAK</small><strong>{streak.current} days</strong></div></div><div className="story-date">{today.toLocaleDateString(undefined,{month:'long',day:'numeric',year:'numeric'})}</div><div className="story-footer">Progress, not perfection.</div></div><button className="export-story" onClick={exportStory}><Share2 size={17}/> Export Story PNG</button><p className="muted small">Create a vertical story card from today's real progress and save it as an image.</p></section>
-  <div id="settings"><CloudBackupPanel habits={habits} history={history} sessions={sessions} freezes={frozenDates} onRestore={(backup)=>{setHabits(backup.habits);setHistory(backup.history);setSessions(backup.sessions);setFrozenDates(backup.freezes||[])}} /></div>
+  <div id="settings"><section className="card appearance-card"><div className="section-head"><div><p className="eyebrow">MAKE IT YOURS</p><h2>Appearance</h2></div></div><p className="appearance-description">Choose the workspace style that feels comfortable. Your choice stays on this device.</p><div className="theme-options"><button type="button" className={theme === 'dark' ? 'theme-option selected' : 'theme-option'} aria-pressed={theme === 'dark'} onClick={() => setTheme('dark')}><Moon size={17}/><span><strong>Dark</strong><small>Deep forest</small></span></button><button type="button" className={theme === 'light' ? 'theme-option selected' : 'theme-option'} aria-pressed={theme === 'light'} onClick={() => setTheme('light')}><Sun size={17}/><span><strong>Warm light</strong><small>Soft paper</small></span></button></div></section><CloudBackupPanel habits={habits} history={history} sessions={sessions} freezes={frozenDates} onRestore={(backup)=>{setHabits(backup.habits);setHistory(backup.history);setSessions(backup.sessions);setFrozenDates(backup.freezes||[])}} /></div>
   <StatsOverview weeklyRate={weeklyRate} weeklyCompletions={weeklyCompletions} weeklyFocus={weeklyFocus} bestHabit={bestHabit} weeklyBars={weeklyBars} maxBar={maxBar}/>
   <ActivityHeatmap heatmap={heatmap} habits={habits}/>
   <StreakCalendar today={today} history={history} habits={habits} frozenDates={frozenDates}/>
