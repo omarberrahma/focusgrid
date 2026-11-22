@@ -245,3 +245,21 @@ html{scroll-behavior:smooth;scroll-padding-top:24px}
 :root[data-theme="light"] .habit-editor-label{color:#68766b}:root[data-theme="light"] .habit-editor-name,:root[data-theme="light"] .habit-editor-category{background:#fffdf8;border-color:#ddd5c7;color:#303a32}
 :root[data-theme="light"] .habit-editor-icons button{background:#f2eee5;border-color:#e0d7c8}:root[data-theme="light"] .habit-editor-icons button.selected{background:#e2eee1;border-color:#83b891}
 @media(max-width:420px){.habit-editor-backdrop{padding:10px}.habit-editor{padding:17px;border-radius:16px}.habit-editor-icons{grid-template-columns:repeat(6,minmax(0,1fr))}}
+
+/* V1 multi-page navigation and mobile hamburger drawer */
+.sidebar nav .nav-item{width:100%;border:0;background:transparent;text-align:left;cursor:pointer;font:inherit}
+.sidebar nav .nav-item:hover{background:#202821;color:#dce9de}
+.topbar-title{display:flex;align-items:center;gap:12px}
+.menu-toggle{display:none;width:38px;height:38px;place-items:center;border:1px solid #303a32;background:#202721;color:#b9c8bc;border-radius:10px;cursor:pointer}
+.mobile-menu-backdrop{display:none}
+@media(max-width:760px){
+  .menu-toggle{display:grid}
+  .sidebar.mobile-sidebar-open{display:flex;z-index:1300;width:min(280px,82vw);box-shadow:18px 0 60px rgba(0,0,0,.32)}
+  .mobile-menu-backdrop{display:block;position:fixed;inset:0;z-index:1290;border:0;background:rgba(6,9,7,.64);backdrop-filter:blur(3px)}
+  .topbar{gap:12px;align-items:flex-start}
+  .topbar-title{gap:9px}
+  .topbar-actions{flex-wrap:wrap;justify-content:flex-end;gap:6px}
+  .date-chip{display:none}
+}
+:root[data-theme="light"] .sidebar nav .nav-item:hover{background:#e3eddf;color:#426c49}
+:root[data-theme="light"] .menu-toggle{background:#f5f4ed;border-color:#dedace;color:#536456}
