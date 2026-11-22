@@ -130,3 +130,4 @@
 - [ ] Welcome feature cards are legible on small mobile screens.
 - [ ] Get started opens the app and the welcome screen stays dismissed after reload.
 - [ ] Light theme styling is readable when selected.
+\n\n## Habit categories\n- [ ] New habits can be assigned Learning, Health, Mind, Work, or Other.\n- [ ] Category filters show only matching habits and All shows every habit.\n- [ ] Empty category filter displays a helpful message.\n- [ ] Existing habits and older backups without categories remain valid and appear under Other.\n- [ ] Category metadata survives backup/restore.\n- [ ] Filter tabs and category selector are usable on narrow screens.\n
