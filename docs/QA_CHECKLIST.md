@@ -72,8 +72,8 @@
 
 
 ## Responsive UI
-- [ ] Bottom navigation scrolls to each section.
-- [ ] Desktop sidebar navigation works.
+- [ ] Desktop sidebar navigation switches pages correctly.
+- [ ] Mobile hamburger drawer opens, closes on backdrop, and closes after selecting a page.
 - [ ] Check cards, timer controls, inputs and charts at 320px, 390px, tablet and desktop widths.
 - [ ] Confirm no content is obscured by fixed mobile navigation.
 
