@@ -9,7 +9,9 @@ npm run dev
 ```
 
 ## Current features
-- Daily habits: create, edit, delete, check off, and filter by category (limit: 5)\n- Habit categories: Learning, Health, Mind, Work, and Other
+- Daily habits: create, edit, delete, check off, and filter by category (limit: 5)
+- Habit editor dialog: update name, emoji, and category while preserving habit identity and completion history
+- Habit categories: Learning, Health, Mind, Work, and Other
 - Local habit/history persistence and legacy habit migration
 - Current and longest streak
 - Manual streak freeze: protect one missed previous day, with 2 uses per calendar month
@@ -29,7 +31,8 @@ npm run dev
 - Editable daily and rolling 7-day focus-minute goals with persistent progress tracking
 - PWA manifest, install prompt, and service worker caching for offline app shell
 - Online/offline status indicator
-- First-launch welcome screen with feature overview and one-tap entry\n- Persistent Dark and Warm Light appearance themes
+- First-launch welcome screen with feature overview and one-tap entry
+- Persistent Dark and Warm Light appearance themes
 - Responsive mobile-first interface
 - Defensive local storage parsing and backup payload validation
 - Automatic date rollover refresh while the app remains open
