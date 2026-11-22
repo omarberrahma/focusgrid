@@ -13,6 +13,7 @@
 - [ ] Edit and delete habits; deleted habit IDs are removed from every date's history.
 - [ ] Toggle a habit repeatedly; each toggle updates only today's entry.
 - [ ] Refresh: habits, history, and focus sessions persist.
+- [ ] Delete all habits, refresh, and confirm the intentionally empty habit list remains empty (defaults must not reappear).
 - [ ] Corrupt or invalid localStorage JSON: app falls back safely.
 - [ ] Old habit storage key migrates and is capped at five valid habits.
 
