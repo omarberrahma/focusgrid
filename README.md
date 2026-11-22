@@ -33,6 +33,8 @@ npm run dev
 - Online/offline status indicator
 - First-launch welcome screen with feature overview and one-tap entry
 - Persistent Dark and Warm Light appearance themes
+- Multi-page workspace: Overview, Habits, Focus, Statistics, History, and Settings with dedicated views
+- Desktop sidebar navigation and mobile hamburger drawer (no endless dashboard scrolling)
 - Responsive mobile-first interface
 - Defensive local storage parsing and backup payload validation
 - Automatic date rollover refresh while the app remains open
