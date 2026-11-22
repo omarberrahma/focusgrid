@@ -61,6 +61,16 @@
 - [ ] Invalid cloud payload is rejected.
 - [ ] No credentials are committed to source control.
 
+## Multi-page navigation
+- [ ] Sidebar navigation switches between Overview, Habits, Focus, Statistics, History, and Settings without page reload.
+- [ ] Mobile hamburger opens the drawer and clicking a destination closes it.
+- [ ] Tapping outside the drawer closes it.
+- [ ] Only the selected page content is shown; the app is not a long continuous dashboard.
+- [ ] Focus timer continues running when navigating to another page.
+- [ ] Focus overlay remains available while the timer is active.
+- [ ] Navigation buttons indicate the current page and remain keyboard accessible.
+
+
 ## Responsive UI
 - [ ] Bottom navigation scrolls to each section.
 - [ ] Desktop sidebar navigation works.
